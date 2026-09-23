@@ -90,6 +90,7 @@ export const home = {
   boxes: {
     title: "Las cajas",
     viewAll: "Ver todo",
+    tabsLabel: "Filtrar cajas por sabor",
   },
   marina: {
     eyebrow: "Hecho por Marina",
@@ -233,6 +234,18 @@ export const productPage = {
       },
     ],
   },
+};
+
+export const productCard = {
+  from: "Desde",
+  unitsSuffix: "bombones",
+  previousPrice: "Precio anterior:",
+  notifyMe: "Avísame",
+  notifyLabel: "Tu correo para avisarte",
+  notifyPlaceholder: "nombre@correo.com",
+  notifySubmit: "Avisarme",
+  notifyError: "Revisa tu correo",
+  notifySuccess: "Listo. Te avisamos apenas vuelva.",
 };
 
 export const collectionPage = {

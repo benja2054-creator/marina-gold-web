@@ -219,6 +219,10 @@ const config: Config = {
       outlineOffset: {
         focus: v("space-0-5"),
       },
+      textUnderlineOffset: {
+        // Enlaces de texto: subrayado con offset 5 (notas §4)
+        link: v("space-1-25"),
+      },
     },
   },
   plugins: [],
