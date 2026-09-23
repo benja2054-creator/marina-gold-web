@@ -267,7 +267,8 @@ export const collectionPage = {
 
 export const notFound = {
   eyebrow: "Error 404",
-  title: "Esta página se la comieron.",
+  title: "Esta página no existe.",
+  titleAccent: "Alguien se la comió.",
   body: "No encontramos lo que buscabas. Pero las cajas siguen aquí.",
   cta: "Ver las cajas",
   home: "Volver al inicio",

@@ -24,4 +24,9 @@ Registro de contradicciones y huecos del diseño, y cómo se resolvieron. Aproba
 - Hero en tablet (no definido en las notas): desde 768 px se usa la foto 16:9 con alto `min(56.25vw, 720px)`; en 4:5 ocuparía 940 px de alto.
 - "Hecho por Marina" pasa a dos columnas desde 768 px (las notas solo lo piden en escritorio) por la misma razón.
 - Tamaños medidos en la lámina donde las notas no dicen nada: subtítulo del newsletter a 14 px y línea de distritos a 13 px. El título del newsletter queda en 30 px (las notas piden normalizar los H2 a 30, aunque en la lámina mida 28).
+- Ficha en escritorio: miniaturas verticales de 72 px de ancho. Destacados y desplegables van en la columna de compra, que queda pegajosa.
+- Ficha agotada (Coulis): tamaños rayados, botón gris "AGOTADA", "Vuelve el viernes" y botón AVÍSAME debajo.
+- AÑADIR AL CARRITO no agrega nada (maqueta): muestra "Maqueta: el carrito aún no está conectado." El contador del header es fijo (2), como en las láminas.
+- Las ocasiones enlazan a /collections/todas; FAQ del menú lateral enlaza a /products/surtida#preguntas.
+- Página 404 con título "Esta página no existe. *Alguien se la comió.*" (texto de ejemplo).
 - Los tramos de la guía de estilo miden 2400 × 1800 px porque la lámina mide 2400 px de ancho.

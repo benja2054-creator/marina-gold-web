@@ -70,13 +70,40 @@ Los textos marcados con `TODO` en el código son de ejemplo y aún no están con
 
 ## Imágenes
 
-Cada imagen se muestra como placeholder con su proporción fija y el nombre de archivo esperado. Al copiar la foto con ese nombre, aparece sin mover la maquetación.
+Cada imagen se muestra como placeholder con su proporción fija, el color que indican las notas y el nombre de archivo esperado. Al copiar la foto con ese nombre en `public/images/`, aparece sin mover la maquetación.
 
-- `public/images/hero-mobile.jpg` (4:5) y `public/images/hero-desktop.jpg` (16:9)
-- `public/images/products/[slug]-1.jpg` a `[slug]-5.jpg` (4:5): caja cerrada, caja abierta desde arriba, bombón cortado con el relleno, detalle de textura, ambiente o regalo
-- `public/images/flavors/manjar-de-olla.jpg`, `maracuya.jpg`, `coulis-de-fresa.jpg` (1:1)
-- `public/images/ocasiones/regalo.jpg`, `cumpleanos.jpg`, `aniversario.jpg`, `antojo.jpg` (4:5)
-- `public/images/marina-1.jpg` (4:5)
+- En desarrollo (`npm run dev`) basta con recargar la página.
+- En producción (`npm run build`) las páginas son estáticas: hay que volver a compilar para que aparezcan las fotos nuevas.
+
+Formato JPG. Tamaño recomendado: 1200 × 1500 (4:5), 1200 × 1200 (1:1), 1125 × 1407 (hero móvil) y 2560 × 1440 (hero escritorio).
+
+| Archivo | Proporción | Qué debe mostrar |
+| --- | --- | --- |
+| `hero-mobile.jpg` | 4:5 | Caja Surtida abierta, vertical. El texto blanco va centrado encima: zona central tranquila |
+| `hero-desktop.jpg` | 16:9 | Caja Surtida abierta, horizontal (se usa desde 768 px). Misma zona central tranquila |
+| `products/[slug]-1.jpg` | 4:5 | Caja cerrada (en la Surtida, con lazo rojo) |
+| `products/[slug]-2.jpg` | 4:5 | Caja abierta vista desde arriba (también se ve al pasar el mouse por la tarjeta) |
+| `products/[slug]-3.jpg` | 4:5 | Bombón cortado mostrando el relleno |
+| `products/[slug]-4.jpg` | 4:5 | Detalle de textura de la cobertura |
+| `products/[slug]-5.jpg` | 4:5 | Foto de ambiente o de regalo |
+| `flavors/manjar-de-olla.jpg` | 1:1 | Bombón de manjar de olla en chocolate negro, partido a la mitad, relleno visible |
+| `flavors/maracuya.jpg` | 1:1 | Bombón de maracuyá en chocolate de leche, partido, relleno amarillo brillante |
+| `flavors/coulis-de-fresa.jpg` | 1:1 | Bombón de chocolate blanco con coulis de fresa escurriendo |
+| `ocasiones/regalo.jpg` | 4:5 | Caja con lazo y tarjeta escrita a mano |
+| `ocasiones/cumpleanos.jpg` | 4:5 | Caja abierta con una vela encendida |
+| `ocasiones/aniversario.jpg` | 4:5 | Caja de 12 bombones en una mesa para dos |
+| `ocasiones/antojo.jpg` | 4:5 | Mano tomando un bombón de la caja abierta |
+| `marina-1.jpg` | 4:5 | Marina en su cocina, delantal negro, bandeja de bombones en mano |
+
+`[slug]` es `surtida`, `manjar-de-olla`, `maracuya` y `coulis-de-fresa`: 20 fotos de cajas, 30 imágenes en total. Las fotos de sabor van sobre fondo del color "deep" de su sabor; conviene que el fondo de la foto combine con él.
+
+## Textos pendientes de confirmar (TODO)
+
+Buscar `TODO` en `data/` y `components/`:
+
+- `data/content.ts`: "Edición Primavera", lista de distritos, "desde mañana", "tarjeta con dedicatoria", respuestas de la FAQ, textos de ejemplo de DELIVERY EN LIMA, CONSERVACIÓN e INGREDIENTES Y ALÉRGENOS, enlaces de WhatsApp, Rappi, PedidosYa, privacidad, "Nuestra historia", redes y páginas legales.
+- `data/catalog.ts`: precios, oferta del 10% (S/ 40.50 y S/ 76.50), "caja rígida con lazo" y "Vuelve el viernes".
+- `components/PaymentLogos.tsx`: logos oficiales de Yape y Plin.
 
 ## Paquete de diseño (`referencias/diseno`)
 
@@ -85,10 +112,12 @@ Diseño aprobado en Claude Design. Se guarda en el repositorio junto al código.
 - `notas-de-diseno.md` — dirección visual, tipografías, colores de sabor, componentes con medidas y estados, orden de secciones, tablet/escritorio/menú lateral/animaciones y cambios respecto al pedido original. **Manda en todo lo visual.**
 - `tokens.css` — colores, fuentes, tamaños, espaciados, radios y sombras. **Manda junto con las notas.**
 - `laminas/` — láminas de referencia: `01-home-movil-3x.png`, `02-ficha-caja-surtida-movil-3x.png`, `03-guia-de-estilo-2x.png`.
-- `cortes/` — tramos de ~1125 × 1800 px de las láminas (generados con `scripts/`), para revisarlas por partes.
+- `cortes/` — tramos de ~1125 × 1800 px de las láminas, para revisarlas por partes. Se regeneran con `powershell -ExecutionPolicy Bypass -File scripts/cortar-laminas.ps1`.
 - `LEEME-entrega-completa.md` — todo en un solo documento más la revisión de las láminas. Solo de consulta.
 
 Orden de prioridad si algo no coincide: notas y tokens → láminas → prompt del proyecto → sugarpapi.es (solo comportamiento).
+
+Las contradicciones resueltas y las decisiones tomadas durante la construcción están en `referencias/decisiones.md`.
 
 ## Conectar una tienda real (futuro)
 
