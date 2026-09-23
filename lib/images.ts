@@ -9,6 +9,7 @@ import path from "node:path";
  */
 
 export interface ImageAsset {
+  /** Ruta pública, con el basePath de GitHub Pages si corresponde */
   src: string;
   alt: string;
   /** Qué debe mostrar la foto (para generarla) */
@@ -18,7 +19,9 @@ export interface ImageAsset {
   exists: boolean;
 }
 
+const BASE_PATH = process.env.NEXT_PUBLIC_BASE_PATH ?? "";
+
 export function imageAsset(src: string, alt: string, brief: string): ImageAsset {
   const exists = fs.existsSync(path.join(process.cwd(), "public", src));
-  return { src, alt, brief, filename: src.replace(/^\/images\//, ""), exists };
+  return { src: `${BASE_PATH}${src}`, alt, brief, filename: src.replace(/^\/images\//, ""), exists };
 }

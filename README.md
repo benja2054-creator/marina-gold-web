@@ -127,16 +127,19 @@ Las claves van en `.env.local` (ver `.env.example`). Nunca se guardan claves rea
 
 ## GitHub y ambiente de pruebas
 
-Repositorio **privado**: <https://github.com/benja2054-creator/marina-gold-web> (rama `main`). Para subir cambios nuevos:
+- Repositorio (**público**): <https://github.com/benja2054-creator/marina-gold-web>, rama `main`.
+- Ambiente de pruebas en **GitHub Pages**: <https://benja2054-creator.github.io/marina-gold-web/>
+- Versión local: <http://localhost:3000> con `npm run dev`.
 
-```bash
-git push
-```
+Cada cambio se hace en local, se guarda con un commit y se sube con `git push`. El workflow `.github/workflows/pages.yml` vuelve a publicar la página sola en 1–2 minutos (estado en la pestaña **Actions** del repositorio).
 
-Pendiente (no hacer hasta que se apruebe):
+Cómo funciona la versión de GitHub Pages: el workflow compila con `GITHUB_PAGES=true`. Eso activa en `next.config.ts` la exportación estática (`out/`), la subruta `/marina-gold-web` y las imágenes sin optimizar, porque Pages no tiene servidor. En local no cambia nada. El sitio está marcado para que Google no lo indexe, pero cualquiera con el enlace puede verlo.
 
-1. ~~Crear el repositorio privado en GitHub.~~ Hecho.
+Alternativa futura: Vercel, que permite repositorio privado e imágenes optimizadas.
+
+1. ~~Crear el repositorio en GitHub.~~ Hecho.
 2. ~~Conectar y subir la rama `main`.~~ Hecho.
-3. Publicar el ambiente de pruebas (por ejemplo en Vercel): importar el repositorio, framework Next.js, sin variables de entorno por ahora.
-4. Proteger el ambiente de pruebas (contraseña o acceso restringido) y evitar que Google lo indexe hasta el lanzamiento.
-5. Cuando exista la tienda real, cargar las claves como variables de entorno en la plataforma de hosting, nunca en el código.
+3. ~~Publicar el ambiente de pruebas.~~ Hecho, en GitHub Pages.
+4. (Opcional) Pasar a Vercel: importar el repositorio, framework Next.js, sin variables de entorno por ahora.
+5. Proteger el ambiente de pruebas con acceso restringido si hace falta (la indexación en Google ya está bloqueada).
+6. Cuando exista la tienda real, cargar las claves como variables de entorno en la plataforma de hosting, nunca en el código.
