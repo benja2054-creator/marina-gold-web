@@ -1,0 +1,12 @@
+# Finales de línea LF en el repositorio (igual en Windows, GitHub y el hosting)
+* text=auto eol=lf
+*.ps1 text eol=crlf
+
+# Binarios
+*.png binary
+*.jpg binary
+*.jpeg binary
+*.webp binary
+*.avif binary
+*.ico binary
+*.woff2 binary
