@@ -21,6 +21,8 @@ interface PhotoProps {
   /** Placeholder sobre fondo oscuro (hero) */
   dark?: boolean;
   fetchPriority?: "high" | "low" | "auto";
+  /** Nombre del archivo arriba (galería, donde abajo van los segmentos) */
+  labelTop?: boolean;
   className?: string;
   children?: React.ReactNode;
 }
@@ -29,7 +31,17 @@ interface PhotoProps {
  * Foto con proporción fija. Si el archivo aún no está en /public/images, muestra un bloque
  * del color indicado en las notas con el nombre del archivo esperado en texto pequeño.
  */
-export function Photo({ image, ratio, bg, sizes, dark = false, fetchPriority, className = "", children }: PhotoProps) {
+export function Photo({
+  image,
+  ratio,
+  bg,
+  sizes,
+  dark = false,
+  fetchPriority,
+  labelTop = false,
+  className = "",
+  children,
+}: PhotoProps) {
   return (
     <div className={`relative overflow-hidden ${ratioClass[ratio]} ${bg} ${className}`}>
       {image.exists ? (
@@ -43,7 +55,11 @@ export function Photo({ image, ratio, bg, sizes, dark = false, fetchPriority, cl
           className="object-cover"
         />
       ) : (
-        <div role="img" aria-label={image.alt} className="absolute inset-0 flex items-end p-2">
+        <div
+          role="img"
+          aria-label={image.alt}
+          className={`absolute inset-0 flex p-2 ${labelTop ? "items-start" : "items-end"}`}
+        >
           <span
             aria-hidden="true"
             className={`break-all text-mg-badge font-medium leading-card ${dark ? "text-mg-on-dark-muted" : "text-mg-ink-3"}`}

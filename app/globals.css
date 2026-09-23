@@ -100,11 +100,27 @@
 }
 
 @layer utilities {
+  /* Opción agotada del selector de tamaño: rayada en diagonal [PROPUESTO] */
+  .mg-striped {
+    background-image: repeating-linear-gradient(
+      135deg,
+      transparent 0 var(--mg-space-1-5),
+      var(--mg-line) var(--mg-space-1-5) calc(var(--mg-space-1-5) + 1px)
+    );
+  }
+
   .scrollbar-none {
     scrollbar-width: none;
   }
   .scrollbar-none::-webkit-scrollbar {
     display: none;
+  }
+}
+
+/* Barra fija de la ficha: deja espacio al final para que no tape el footer (solo móvil y tablet) */
+@media (max-width: 1023px) {
+  body:has(.mg-sticky-bar[data-visible="true"]) {
+    padding-bottom: calc(var(--mg-sticky-bar-h) + env(safe-area-inset-bottom));
   }
 }
 

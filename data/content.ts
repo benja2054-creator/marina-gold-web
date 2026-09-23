@@ -137,7 +137,17 @@ export const newsletter = {
 };
 
 export const productPage = {
+  galleryLabel: "Fotos de",
+  photoOf: "de",
+  quantityLabel: "Cantidad",
+  decrease: "Quitar uno",
+  increase: "Agregar uno",
+  // Maqueta: el carrito todavía no está conectado a una tienda.
+  mockCartNotice: "Maqueta: el carrito aún no está conectado.",
+  savingsPrefix: "Ahorra",
+  previousPrice: "Precio anterior:",
   sizeLabel: "Tamaño",
+  descriptionTitle: "Descripción",
   addToCart: "Añadir al carrito",
   addShort: "Añadir",
   soldOut: "Agotada",

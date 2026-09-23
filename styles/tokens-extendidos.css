@@ -63,6 +63,7 @@
   --mg-qty-value: 30px;          /* celda del número */
   --mg-inside-photo: 96px;       /* foto de "¿Qué hay dentro?" */
   --mg-occasion-card: 220px;     /* tarjeta de ocasión */
+  --mg-gallery-thumb: 72px;      /* [PROPUESTO] miniaturas verticales de la galería en escritorio */
   --mg-thumb-w: 44px;            /* miniatura de la barra fija, 4:5 */
   --mg-thumb-h: 55px;
   --mg-drawer-w: min(88vw, 360px);
