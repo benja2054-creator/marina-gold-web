@@ -1,3 +1,104 @@
+@import "../styles/tokens.css";
+@import "../styles/tokens-extendidos.css";
+
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+@layer base {
+  html {
+    -webkit-text-size-adjust: 100%;
+    scroll-padding-top: var(--mg-header-h);
+  }
+
+  body {
+    background-color: var(--mg-white);
+    color: var(--mg-ink);
+    font-family: var(--mg-sans);
+    font-size: var(--mg-text-body);
+    line-height: var(--mg-leading-body);
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    text-rendering: optimizeLegibility;
+  }
+
+  /* Foco visible (notas §4) */
+  :focus-visible {
+    outline: 2px solid var(--mg-focus);
+    outline-offset: var(--mg-space-0-5);
+  }
+
+  /* Evita que el velo del menú o la barra fija oculten el foco del teclado */
+  [hidden] {
+    display: none !important;
+  }
+}
+
+@layer components {
+  /* Contenedor centrado: gutter 16 · 24 · 48 y ancho máximo 720 · 1200 (notas §6) */
+  .mg-container {
+    width: 100%;
+    max-width: calc(var(--mg-container) + 2 * var(--mg-gutter));
+    margin-inline: auto;
+    padding-inline: var(--mg-gutter);
+  }
+
+  /* Antetítulo rojo: DM Sans 700 · 11 · 0.18em */
+  .mg-eyebrow {
+    font-family: var(--mg-sans);
+    font-weight: 700;
+    font-size: var(--mg-text-eyebrow);
+    letter-spacing: var(--mg-tracking-eyebrow);
+    text-transform: uppercase;
+    color: var(--mg-red);
+    line-height: var(--mg-leading-body);
+  }
+
+  /* Rótulo: DM Sans 700 · 11 · 0.14em */
+  .mg-label {
+    font-family: var(--mg-sans);
+    font-weight: 700;
+    font-size: var(--mg-text-eyebrow);
+    letter-spacing: var(--mg-tracking-label);
+    text-transform: uppercase;
+    line-height: var(--mg-leading-body);
+  }
+
+  /* Título de sección H2: Playfair 800 · 30 / 1.05 */
+  .mg-h2 {
+    font-family: var(--mg-serif);
+    font-weight: 800;
+    font-size: var(--mg-text-h2);
+    line-height: var(--mg-leading-heading);
+    text-transform: uppercase;
+  }
+
+  /* Itálica de acento: Playfair 400 itálica, minúsculas normales */
+  .mg-accent {
+    font-family: var(--mg-serif);
+    font-style: italic;
+    font-weight: 400;
+    text-transform: none;
+  }
+}
+
+@layer utilities {
+  .scrollbar-none {
+    scrollbar-width: none;
+  }
+  .scrollbar-none::-webkit-scrollbar {
+    display: none;
+  }
+}
+
+/* Movimiento reducido: sin desplazamientos, solo cambios instantáneos (notas §6) */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}

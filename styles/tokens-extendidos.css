@@ -1,0 +1,118 @@
+/* =========================================================
+   MARINA GOLD · Tokens complementarios
+   tokens.css (copia exacta del paquete aprobado) es la base y no se modifica.
+   Aquí van SOLO medidas que aparecen en notas-de-diseno.md pero no en tokens.css,
+   y los ajustes responsive de la sección 6 de las notas [PROPUESTO].
+   Todos siguen el prefijo --mg-.
+   ========================================================= */
+:root {
+  /* ---------- Fuentes: next/font genera los nombres reales ---------- */
+  --mg-serif: var(--mg-font-playfair), Georgia, serif;
+  --mg-sans: var(--mg-font-dmsans), system-ui, sans-serif;
+
+  /* ---------- Tipografía: tamaños citados en las notas §2, §4 y §5 ---------- */
+  --mg-text-h2-lg: 34px;           /* "LAS CAJAS" */
+  --mg-text-hero-eyebrow: 13px;    /* "EDICIÓN PRIMAVERA" 700 / 0.08em */
+  --mg-text-subtitle: 13.5px;      /* subtítulo de la ficha */
+  --mg-text-button-sm: 12px;       /* "AVÍSAME", enlaces de texto */
+  --mg-text-accordion: 14.5px;     /* texto de desplegables y pregunta FAQ */
+  --mg-text-faq: 14px;             /* respuesta FAQ */
+  --mg-text-footer-link: 13px;     /* enlaces legales del footer, ítems del menú */
+  --mg-text-copyright: 11.5px;     /* línea © del footer, destacados de la ficha */
+  --mg-text-sticky-name: 15px;     /* nombre en la barra fija */
+  --mg-text-sticky-meta: 12px;     /* "12 bombones · S/ 85.00" */
+  --mg-text-inside-name: 17px;     /* nombre de sabor en "¿Qué hay dentro?" */
+  --mg-text-occasion: 18px;        /* título de ocasión, número "01" de la franja */
+  --mg-text-signature: 24px;       /* firma "— Marina" */
+
+  --mg-leading-logo: 0.88;         /* logo gigante del footer */
+  --mg-leading-card: 1.15;         /* título de tarjeta */
+  --mg-leading-note: 1.45;         /* "Relleno de…", "Cobertura de…" */
+
+  --mg-tracking-none: 0;
+  --mg-tracking-h1: 0.01em;        /* H1 producto, logo del footer */
+  --mg-tracking-h3: 0.02em;        /* nombre del sabor */
+  --mg-tracking-card: 0.03em;      /* título de tarjeta */
+  --mg-tracking-hero-eyebrow: 0.08em;
+  --mg-tracking-option: 0.10em;    /* botón hero, opción de tamaño */
+  --mg-tracking-label: 0.14em;     /* rótulos, barra de anuncio, enlaces de texto */
+
+  /* ---------- Espaciado: pasos intermedios de la escala base 4 ---------- */
+  --mg-space-0-5: 2px;   /* offset del foco */
+  --mg-space-0-75: 3px;  /* alto de los segmentos de la galería */
+  --mg-space-1-25: 5px;  /* padding vertical de etiquetas */
+  --mg-space-1-5: 6px;
+  --mg-space-1-75: 7px;  /* padding lateral de etiquetas con borde */
+  --mg-space-2-25: 9px;  /* "AHORRA S/ 5" sobresale 9 px */
+  --mg-space-2-5: 10px;
+  --mg-space-2-75: 11px; /* = --mg-grid-col-gap */
+  --mg-space-3-5: 14px;
+  --mg-space-4-5: 18px;
+  --mg-space-9: 36px;    /* padding inferior de franjas, newsletter y "¿Qué hay dentro?" */
+  --mg-space-12: 48px;   /* gutter de escritorio */
+
+  /* ---------- Tamaños de componentes citados en las notas §4 ---------- */
+  --mg-faq-row: 60px;
+  --mg-counter-h: 24px;          /* contador "1 / 5" */
+  --mg-cart-count: 16px;         /* círculo del contador del carrito */
+  --mg-hero-btn-min: 150px;
+  --mg-qty-cell: 42px;           /* celdas "−" y "+" */
+  --mg-qty-value: 30px;          /* celda del número */
+  --mg-inside-photo: 96px;       /* foto de "¿Qué hay dentro?" */
+  --mg-occasion-card: 220px;     /* tarjeta de ocasión */
+  --mg-thumb-w: 44px;            /* miniatura de la barra fija, 4:5 */
+  --mg-thumb-h: 55px;
+  --mg-drawer-w: min(88vw, 360px);
+
+  /* Íconos */
+  --mg-icon-xs: 14px;     /* check del tamaño elegido */
+  --mg-icon-bell: 15px;   /* campana de "AVÍSAME" */
+  --mg-icon-sm: 16px;     /* +/−, flechas, reloj */
+  --mg-icon-md: 20px;     /* íconos de botón */
+  --mg-icon-header: 21px; /* buscar y carrito */
+  --mg-icon-lg: 22px;     /* hamburguesa, redes */
+  --mg-icon-xl: 28px;     /* destacados de la ficha */
+
+  /* ---------- Color: transparencias citadas en las notas ---------- */
+  --mg-segment-off: rgba(17, 17, 17, 0.20);  /* segmentos inactivos de la galería */
+  --mg-hero-veil: rgba(17, 17, 17, 0.30);    /* velo sobre foto clara del hero (25–35%) */
+
+  /* ---------- Contenedor y gutter (responsive, notas §6) ---------- */
+  --mg-container: 100%;
+  --mg-container-product: 100%;
+  --mg-faq-max: 760px;
+
+  /* ---------- Movimiento ---------- */
+  --mg-dur-reveal: 400ms;   /* aparición de secciones al hacer scroll */
+  --mg-reveal-shift: 12px;
+}
+
+/* Tablet 768 px [PROPUESTO] */
+@media (min-width: 768px) {
+  :root {
+    --mg-gutter: 24px;
+    --mg-container: 720px;
+    --mg-container-product: 600px;
+    --mg-grid-col-gap: 16px;
+    --mg-grid-row-gap: 40px;
+  }
+}
+
+/* Escritorio (desde 1024 px, diseñado a 1440) [PROPUESTO] */
+@media (min-width: 1024px) {
+  :root {
+    --mg-gutter: 48px;
+    --mg-container: 1200px;
+    --mg-container-product: 1200px;
+    --mg-grid-col-gap: 24px;
+    --mg-grid-row-gap: 40px;
+
+    --mg-text-hero: 72px;
+    --mg-text-h1: 48px;
+    --mg-text-h2: 44px;
+    --mg-text-h2-lg: 44px;
+    --mg-text-h3: 32px;
+    --mg-text-body: 16px;
+    --mg-text-footer-logo: clamp(84px, 10.5vw, 150px); /* "MARINA GOLD." en una línea a todo el ancho */
+  }
+}

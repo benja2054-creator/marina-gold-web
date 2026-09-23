@@ -42,11 +42,14 @@ app/                 Páginas (App Router)
   products/[slug]/     Ficha de caja (/products/surtida, ...)
   collections/todas/   Colección (/collections/todas)
   not-found.tsx        Página 404
-components/          Componentes de interfaz
-data/catalog.ts      Catálogo: sabores, cajas, variantes, precios y estados
+components/          Componentes de interfaz (layout/, ui/, íconos y logos de pago)
+data/catalog.ts      Catálogo: sabores, cajas, tamaños, precios base y estados
+data/content.ts      Textos del sitio (anuncio, menú, home, ficha, FAQ, footer…)
 lib/catalog.ts       Funciones de acceso (getProducts, getProductBySlug, getCollection)
 lib/pricing.ts       Cálculos de precio (por bombón, "Desde", ahorro, oferta)
-styles/tokens.css    Tokens de diseño (copia de referencias/diseno/tokens.css)
+lib/images.ts        Detecta si cada foto existe en /public; si no, se muestra el placeholder
+styles/tokens.css    Tokens de diseño (copia exacta de referencias/diseno/tokens.css)
+styles/tokens-extendidos.css  Medidas de las notas que no están en tokens.css y ajustes tablet/escritorio
 public/images/       Fotografías (ver lista abajo)
 referencias/diseno/  Paquete de diseño aprobado
 scripts/             Utilidades (p. ej. cortar las láminas)
@@ -56,11 +59,11 @@ scripts/             Utilidades (p. ej. cortar las láminas)
 
 | Qué | Dónde |
 | --- | --- |
-| Textos de secciones, FAQ, anuncios, footer | `data/catalog.ts` (bloque de contenidos del sitio) |
-| Cajas, variantes (6 y 12), estados (MÁS VENDIDA, NOVEDAD, AGOTADA, oferta) | `data/catalog.ts` |
-| Sabores (nombre, cobertura, color) | `data/catalog.ts` |
-| Precios | `data/catalog.ts` — el precio por bombón, el "Desde", el ahorro y el precio con oferta se calculan solos en `lib/pricing.ts` |
-| Colores, fuentes, tamaños, espaciados, radios, sombras | `styles/tokens.css` (los nombres `--mg-*` se usan en `tailwind.config.ts`) |
+| Textos de secciones, FAQ, anuncios, menú, footer, enlaces de redes y WhatsApp | `data/content.ts` |
+| Cajas, composición por tamaño (6 y 12), estados (MÁS VENDIDA, NOVEDAD, AGOTADA, % de oferta), descripción | `data/catalog.ts` → `boxes` |
+| Sabores (nombre, relleno, cobertura, color, descripción) | `data/catalog.ts` → `flavors` |
+| Precios | `data/catalog.ts` → `BASE_PRICES` (en céntimos). El precio por bombón, el "Desde", el ahorro y el precio con oferta se calculan solos en `lib/pricing.ts` |
+| Colores, fuentes, tamaños, espaciados, radios, sombras | `styles/tokens.css`. Las variables `--mg-*` se mapean en `tailwind.config.ts` (p. ej. `bg-mg-red`, `text-mg-ink-2`) |
 | Imágenes | Suelta los archivos en `public/images/` con el nombre exacto que muestra cada placeholder |
 
 Los textos marcados con `TODO` en el código son de ejemplo y aún no están confirmados.

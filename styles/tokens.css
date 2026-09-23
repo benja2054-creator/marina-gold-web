@@ -1,0 +1,134 @@
+/* =========================================================
+   MARINA GOLD · Tokens de diseño · v1 (móvil 375 px)
+   Fuente: lienzo "Marina Gold — Tienda móvil", página "Diseño aprobado"
+   Los valores marcados [PROPUESTO] no están dibujados en el lienzo.
+   ========================================================= */
+:root {
+  /* ---------- Color: marca ---------- */
+  --mg-black: #111111;        /* texto principal, títulos, barra de anuncio, footer, pestaña activa, tamaño elegido, botón "Pedir en la web" */
+  --mg-white: #FFFFFF;        /* fondo dominante del sitio; texto sobre negro y sobre rojo */
+  --mg-red: #C8102E;          /* SOLO: botones de compra (Comprar/Añadir), botón del newsletter, etiqueta de oferta, precio rebajado, antetítulos, contador del carrito, punto del logo del footer */
+  --mg-red-hover: #A50D26;    /* [PROPUESTO] hover/pressed de botones rojos */
+  --mg-black-hover: #2B2B2B;  /* [PROPUESTO] hover/pressed de botones negros */
+  --mg-bone: #F4F4F2;         /* fondo de secciones alternas: "Hecho por Marina", "¿Qué hay dentro?" */
+
+  /* ---------- Color: texto y líneas ---------- */
+  --mg-ink: #111111;          /* texto principal (= negro) */
+  --mg-ink-2: #444444;        /* párrafos, descripciones, respuestas de FAQ */
+  --mg-ink-3: #5C5C5C;        /* datos menores ("6 y 12 bombones"), precio tachado, estado agotado, antetítulo gris de la ficha. Nunca usar un gris más claro sobre blanco */
+  --mg-line: rgba(17, 17, 17, 0.12);   /* divisores, filas de desplegables, borde del header, bordes de fichas de la guía */
+  --mg-border: #111111;       /* borde de botones secundarios, pestañas, selector de tamaño, cantidad, campo de correo */
+
+  /* ---------- Color: sobre fondo negro (footer, hero) ---------- */
+  --mg-on-dark: #FFFFFF;                       /* texto e íconos sobre negro */
+  --mg-on-dark-muted: rgba(255, 255, 255, 0.70); /* línea del © */
+  --mg-on-dark-soft: rgba(255, 255, 255, 0.80);  /* precio secundario dentro del tamaño elegido */
+  --mg-on-dark-border: rgba(255, 255, 255, 0.40); /* borde de botones de redes */
+  --mg-on-dark-line: rgba(255, 255, 255, 0.25);   /* divisores del footer */
+
+  /* ---------- Color: sabores (fondo / fondo de foto) ---------- */
+  --mg-manjar: #EAD3B5;        /* Manjar de olla: franja de sabor, tarjeta de su caja, punto de pestaña, fila de "¿Qué hay dentro?" */
+  --mg-manjar-deep: #DDBF98;   /* Manjar de olla: fondo de fotos de producto sobre su franja */
+  --mg-maracuya: #FBE3A0;      /* Maracuyá: mismos usos + fondo de la sección newsletter */
+  --mg-maracuya-deep: #F4D27A; /* Maracuyá: fondo de fotos */
+  --mg-fresa: #F6CFD4;         /* Coulis de fresa: mismos usos */
+  --mg-fresa-deep: #EDB9C0;    /* Coulis de fresa: fondo de fotos */
+  /* Caja Surtida: los tres colores en franjas verticales iguales (33.34% / 33.33% / 33.33%) */
+  --mg-surtida: linear-gradient(90deg, var(--mg-manjar) 0 33.34%, var(--mg-maracuya) 33.34% 66.67%, var(--mg-fresa) 66.67% 100%);
+
+  /* ---------- Color: estados ---------- */
+  --mg-soldout-veil: rgba(255, 255, 255, 0.55);  /* velo sobre la foto de una caja agotada */
+  --mg-overlay: rgba(17, 17, 17, 0.50);          /* [PROPUESTO] fondo detrás del menú lateral abierto */
+  --mg-focus: #C8102E;                           /* [PROPUESTO] anillo de foco (outline 2px, offset 2px) */
+
+  /* ---------- Color: temporales (se van con las fotos reales) ---------- */
+  --mg-placeholder: #E7E7E4;       /* fondo de placeholders de foto sobre blanco */
+  --mg-placeholder-dark: #1A1A1A;  /* fondo del placeholder del hero */
+
+  /* ---------- Tipografía: familias (cargar con next/font/google) ---------- */
+  --mg-serif: 'Playfair Display', Georgia, serif;  /* títulos, nombres de producto, logo. Pesos 400 itálica, 700, 800. Siempre MAYÚSCULAS salvo la itálica de acento */
+  --mg-sans: 'DM Sans', system-ui, sans-serif;     /* textos, precios, botones, etiquetas. Pesos 400, 500, 700 */
+
+  /* ---------- Tipografía: tamaños (px / interlineado) ---------- */
+  --mg-text-footer-logo: 84px;   /* logo gigante del footer, 800, interlineado 0.88, 2 líneas "MARINA / GOLD." */
+  --mg-text-hero: 33px;          /* "NUEVA COLECCIÓN", 800, interlineado 1, una sola línea */
+  --mg-text-h1: 32px;            /* nombre del producto en la ficha, 800, interlineado 1 */
+  --mg-text-h2: 30px;            /* títulos de sección, 800, interlineado 1.05 (en el lienzo varían 28–34; normalizar a 30, "LAS CAJAS" puede ir a 34) */
+  --mg-text-h3: 26px;            /* nombre del sabor en su franja, 700 */
+  --mg-text-accent: 26px;        /* itálica de acento ("Cero arrepentimientos.", "— Marina", "×4"), 400 itálica */
+  --mg-text-card-title: 16px;    /* nombre de caja en tarjeta, serif 700, tracking 0.03em */
+  --mg-text-logo: 19px;          /* logo del header, serif 700, tracking 0.10em */
+  --mg-text-price-lg: 22px;      /* precio en la ficha, sans 700 */
+  --mg-text-body: 15px;          /* párrafos, sans 400, interlineado 1.5 (1.6 en textos largos) */
+  --mg-text-price: 14px;         /* precio en tarjeta, sans 700 */
+  --mg-text-button: 13px;        /* botones grandes, sans 700, tracking 0.12em, MAYÚSCULAS (12–12.5 en botones pequeños) */
+  --mg-text-small: 12.5px;       /* datos menores y notas, sans 400 */
+  --mg-text-tab: 11.5px;         /* pestañas de filtro, sans 700, tracking 0.12em */
+  --mg-text-eyebrow: 11px;       /* antetítulos y rótulos de campo, sans 700, tracking 0.18em (0.14em en rótulos) */
+  --mg-text-announce: 10.5px;    /* barra de anuncio, sans 500, tracking 0.14em */
+  --mg-text-badge: 9.5px;        /* etiquetas sobre fotos, sans 700, tracking 0.12em */
+
+  --mg-leading-tight: 1;         /* títulos display */
+  --mg-leading-heading: 1.05;    /* títulos de sección */
+  --mg-leading-body: 1.5;        /* párrafos */
+  --mg-leading-long: 1.6;        /* textos largos (Marina, desplegables, FAQ) */
+
+  --mg-tracking-logo: 0.10em;
+  --mg-tracking-button: 0.12em;
+  --mg-tracking-eyebrow: 0.18em;
+
+  /* ---------- Espaciado (escala base 4) ---------- */
+  --mg-space-1: 4px;
+  --mg-space-2: 8px;     /* separación entre pestañas, botones apilados, logos de pago */
+  --mg-space-3: 12px;
+  --mg-space-4: 16px;    /* margen lateral de la página (gutter) */
+  --mg-space-5: 20px;
+  --mg-space-6: 24px;    /* entre título de sección y contenido */
+  --mg-space-7: 28px;    /* padding superior de cada sección */
+  --mg-space-8: 32px;    /* entre filas de la grilla de cajas */
+  --mg-space-10: 40px;   /* padding inferior de cada sección */
+
+  --mg-gutter: 16px;            /* margen lateral en móvil */
+  --mg-section-top: 28px;       /* padding superior de sección */
+  --mg-section-bottom: 40px;    /* padding inferior de sección */
+  --mg-grid-col-gap: 11px;      /* columnas de la grilla de cajas (2 col en 375) */
+  --mg-grid-row-gap: 32px;      /* filas de la grilla de cajas */
+
+  /* ---------- Tamaños de componentes ---------- */
+  --mg-touch: 44px;             /* área táctil mínima: íconos del header, pestañas, redes, "Ver todo" */
+  --mg-btn-lg: 52px;            /* botón Añadir al carrito, botones de "Cómo pedir", campo de correo */
+  --mg-btn-md: 48px;            /* botón del hero, botón de la barra fija */
+  --mg-announce-h: 32px;        /* barra de anuncio */
+  --mg-header-h: 56px;          /* header */
+  --mg-size-option-h: 64px;     /* opción del selector de tamaño */
+  --mg-accordion-row: 56px;     /* fila de desplegable (FAQ: mínimo 60) */
+  --mg-sticky-bar-h: 76px;      /* barra fija inferior */
+  --mg-pay-logo-w: 56px;        /* logo de pago: 56 × 36 */
+  --mg-pay-logo-h: 36px;
+  --mg-social-icon: 22px;       /* ícono de red dentro de caja de 44 */
+  --mg-checkbox: 20px;          /* casilla de consentimiento */
+  --mg-dot: 10px;               /* punto de color en pestañas */
+
+  /* ---------- Forma ---------- */
+  --mg-radius: 0;               /* todo el sitio: esquinas rectas */
+  --mg-radius-pay: 4px;         /* solo logos de medios de pago */
+  --mg-radius-pill: 999px;      /* solo contador del carrito y puntos de sabor */
+  --mg-border-w: 1px;           /* bordes normales */
+  --mg-border-w-selected: 2px;  /* opción de tamaño elegida */
+  --mg-border-w-hero: 1.5px;    /* borde blanco del botón del hero */
+
+  /* ---------- Sombras ---------- */
+  --mg-shadow-sticky: 0 -8px 24px rgba(17, 17, 17, 0.14);  /* ÚNICA sombra del sitio: barra fija inferior */
+  --mg-shadow-drawer: 8px 0 32px rgba(17, 17, 17, 0.18);   /* [PROPUESTO] menú lateral abierto */
+
+  /* ---------- Proporciones de imagen ---------- */
+  --mg-ratio-hero: 4 / 5;       /* hero (375 × 469 en móvil) */
+  --mg-ratio-box: 4 / 5;        /* fotos de caja, galería de la ficha, ocasiones, foto de Marina */
+  --mg-ratio-flavor: 1 / 1;     /* fotos de sabor */
+
+  /* ---------- Movimiento [PROPUESTO] ---------- */
+  --mg-ease: cubic-bezier(0.2, 0.8, 0.2, 1);
+  --mg-dur-fast: 150ms;         /* hover, cambio de color */
+  --mg-dur-base: 250ms;         /* desplegables, barra fija */
+  --mg-dur-slow: 300ms;         /* menú lateral */
+}
