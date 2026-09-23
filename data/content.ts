@@ -6,6 +6,7 @@
  * de confirmación explícita (ver notas-de-diseno.md §7, punto 12).
  * Los productos, sabores y precios están en data/catalog.ts.
  */
+import { joinList } from "@/lib/text";
 
 export const brand = {
   name: "Marina Gold",
@@ -23,6 +24,38 @@ export const links = {
 };
 
 export const announcement = "Delivery en Lima · Pedidos con 24 h de anticipación";
+
+// TODO: confirmar la lista de distritos con el cliente.
+// Una sola lista: la usan "Cómo pedir" (home) y la primera pregunta de la FAQ (ficha).
+export const districts = [
+  "Miraflores",
+  "San Isidro",
+  "Barranco",
+  "Surco",
+  "San Borja",
+  "La Molina",
+  "Jesús María",
+  "Magdalena",
+  "Lince",
+];
+
+/** Etiquetas que arma el catálogo (lib/catalog.ts) */
+export const catalogLabels = {
+  allFilter: "Todas",
+  badges: {
+    soldout: "Agotada",
+    bestseller: "Más vendida",
+    new: "Novedad",
+    discount: (percent: number) => `Ahorra ${percent}%`,
+  },
+  /** Párrafo de composición de la DESCRIPCIÓN, generado desde data/catalog.ts → contents */
+  composition: {
+    boxOf: "Caja de",
+    of: "de",
+    unitsOf: "bombones de",
+    eachFlavor: "de cada sabor",
+  },
+};
 
 /** Navegación de escritorio (notas §6). Anclas a secciones de la home (decisiones.md). */
 export const desktopNav = [
@@ -89,8 +122,8 @@ export const home = {
     titleLines: ["Tres sabores.", "Tres chocolates."],
     titleAccent: "Cero arrepentimientos.",
   },
+  // El título "Las cajas" es el de la colección: collectionPage.title
   boxes: {
-    title: "Las cajas",
     viewAll: "Ver todo",
     tabsLabel: "Filtrar cajas por sabor",
   },
@@ -115,10 +148,8 @@ export const home = {
     whatsapp: "Pedir por WhatsApp",
     rappi: "Rappi",
     pedidosYa: "PedidosYa",
-    // TODO: confirmar la lista de distritos con el cliente.
     districtsLead: "Llegamos a",
-    districts:
-      "Miraflores, San Isidro, Barranco, Surco, San Borja, La Molina, Jesús María, Magdalena y Lince. ¿Otro distrito? Escríbenos y lo vemos.",
+    districts: `${joinList(districts)}. ¿Otro distrito? Escríbenos y lo vemos.`,
   },
 };
 
@@ -226,7 +257,7 @@ export const productPage = {
     items: [
       {
         q: "¿A qué distritos de Lima llegan?",
-        a: "Miraflores, San Isidro, Barranco, Surco, San Borja, La Molina, Jesús María, Magdalena y Lince. ¿Estás en otro distrito? Escríbenos por WhatsApp y lo coordinamos.",
+        a: `${joinList(districts)}. ¿Estás en otro distrito? Escríbenos por WhatsApp y lo coordinamos.`,
       },
       {
         q: "¿Con cuánta anticipación tengo que pedir?",

@@ -117,6 +117,13 @@
   }
 }
 
+/* Menú lateral abierto: bloquea el scroll de la página solo donde el menú existe (< 1024 px) */
+@media (max-width: 1023px) {
+  html.mg-scroll-lock body {
+    overflow: hidden;
+  }
+}
+
 /* Barra fija de la ficha: deja espacio al final para que no tape el footer (solo móvil y tablet) */
 @media (max-width: 1023px) {
   body:has(.mg-sticky-bar[data-visible="true"]) {

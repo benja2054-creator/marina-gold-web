@@ -23,13 +23,13 @@ export function ProductCard({ product, titleAs: Title = "h3" }: { product: Produ
   const photo = (
     <Photo image={product.images[0]} ratio="box" bg={bg} sizes={SIZES}>
       {!soldOut && (
-        <Photo
-          image={product.images[1]}
-          ratio="free"
-          bg={bg}
-          sizes={SIZES}
+        // Capa del hover: el contenedor se posiciona; Photo ocupa todo su alto.
+        <div
+          aria-hidden="true"
           className="absolute inset-0 opacity-0 transition-opacity duration-base group-hover:opacity-100"
-        />
+        >
+          <Photo image={product.images[1]} ratio="free" bg={bg} sizes={SIZES} decorative className="h-full" />
+        </div>
       )}
       {soldOut && <div aria-hidden="true" className="absolute inset-0 bg-mg-soldout-veil" />}
       {product.badge && (

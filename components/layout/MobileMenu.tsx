@@ -37,8 +37,10 @@ export function MobileMenu({ id, open, onClose, boxes, groupLabel, links, whatsa
 
   useEffect(() => {
     if (!open) return;
-    const previousOverflow = document.body.style.overflow;
-    document.body.style.overflow = "hidden";
+    // Bloqueo del scroll con una clase: globals.css solo lo aplica por debajo de 1024 px,
+    // así nunca queda bloqueado en escritorio aunque el menú siga abierto.
+    const root = document.documentElement;
+    root.classList.add("mg-scroll-lock");
     closeRef.current?.focus();
 
     const onKeyDown = (event: KeyboardEvent) => {
@@ -59,9 +61,18 @@ export function MobileMenu({ id, open, onClose, boxes, groupLabel, links, whatsa
       }
     };
     document.addEventListener("keydown", onKeyDown);
+
+    // Desde 1024 el menú se oculta (lg:hidden): si la ventana crece con el menú abierto, se cierra.
+    const desktop = window.matchMedia("(min-width: 1024px)");
+    const onDesktop = (event: MediaQueryListEvent) => {
+      if (event.matches) onClose(false);
+    };
+    desktop.addEventListener("change", onDesktop);
+
     return () => {
-      document.body.style.overflow = previousOverflow;
+      root.classList.remove("mg-scroll-lock");
       document.removeEventListener("keydown", onKeyDown);
+      desktop.removeEventListener("change", onDesktop);
     };
   }, [open, onClose]);
 

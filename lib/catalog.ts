@@ -17,8 +17,10 @@ import {
   type FlavorData,
   type FlavorId,
 } from "@/data/catalog";
+import { catalogLabels, collectionPage, productCard } from "@/data/content";
 import { imageAsset, type ImageAsset } from "@/lib/images";
 import { applyDiscount, bulkSavings, pricePerUnit } from "@/lib/pricing";
+import { joinList } from "@/lib/text";
 
 export type { BoxSize, FlavorColor, FlavorId };
 
@@ -91,15 +93,38 @@ function toFlavor(f: FlavorData): Flavor {
 }
 
 function badgeFor(box: BoxData): Badge | null {
-  if (!box.available) return { kind: "soldout", label: "Agotada" };
-  if (box.discountPercent) return { kind: "discount", label: `Ahorra ${box.discountPercent}%` };
-  if (box.badge === "bestseller") return { kind: "bestseller", label: "Más vendida" };
-  if (box.badge === "new") return { kind: "new", label: "Novedad" };
+  const t = catalogLabels.badges;
+  if (!box.available) return { kind: "soldout", label: t.soldout };
+  if (box.discountPercent) return { kind: "discount", label: t.discount(box.discountPercent) };
+  if (box.badge === "bestseller") return { kind: "bestseller", label: t.bestseller };
+  if (box.badge === "new") return { kind: "new", label: t.new };
   return null;
 }
 
-function toProduct(box: BoxData): Product {
-  const allFlavors = flavorData.map(toFlavor);
+/*
+ * Párrafo de composición de la DESCRIPCIÓN, a partir de `contents` (una sola fuente de verdad):
+ * "**Caja de 12:** 4 de manjar de olla, 4 de maracuyá y 4 de coulis de fresa.\n**Caja de 6:** 2 de cada sabor."
+ * La primera línea (caja más grande) enumera los sabores; las siguientes dicen "N de cada sabor"
+ * si todos van en igual cantidad. Cajas de un sabor: "12 bombones de manjar de olla".
+ */
+function compositionText(variants: Variant[], isAssorted: boolean): string {
+  const t = catalogLabels.composition;
+  return [...variants]
+    .sort((a, b) => b.size - a.size)
+    .map((variant, i) => {
+      const items = variant.contents.filter((c) => c.quantity > 0);
+      const allEqual = items.every((c) => c.quantity === items[0].quantity);
+      const text = !isAssorted
+        ? `${items[0].quantity} ${t.unitsOf} ${items[0].flavor.filling}`
+        : i > 0 && allEqual
+          ? `${items[0].quantity} ${t.eachFlavor}`
+          : joinList(items.map((c) => `${c.quantity} ${t.of} ${c.flavor.filling}`));
+      return `**${t.boxOf} ${variant.size}:** ${text}.`;
+    })
+    .join("\n");
+}
+
+function toProduct(box: BoxData, allFlavors: Flavor[]): Product {
   const byId = (id: FlavorId) => allFlavors.find((f) => f.id === id)!;
 
   const variants: Variant[] = SIZES.map((size) => {
@@ -107,7 +132,7 @@ function toProduct(box: BoxData): Product {
     const price = applyDiscount(base, box.discountPercent);
     return {
       id: `${box.slug}-${size}`,
-      title: `${size} bombones`,
+      title: `${size} ${productCard.unitsSuffix}`,
       size,
       price,
       compareAtPrice: price < base ? base : null,
@@ -119,16 +144,17 @@ function toProduct(box: BoxData): Product {
 
   const [small, large] = variants;
   const productFlavors = box.flavors.map(byId);
+  const isAssorted = productFlavors.length > 1;
 
   return {
     slug: box.slug,
     name: box.name,
     title: box.title,
     subtitle: box.subtitle,
-    description: box.description,
+    description: [box.intro, compositionText(variants, isAssorted), box.packaging],
     flavors: productFlavors,
     colors: productFlavors.map((f) => f.color),
-    isAssorted: productFlavors.length > 1,
+    isAssorted,
     variants,
     available: box.available,
     restockNote: box.restockNote ?? null,
@@ -147,12 +173,13 @@ export async function getFlavors(): Promise<Flavor[]> {
 }
 
 export async function getProducts(): Promise<Product[]> {
-  return boxes.map(toProduct);
+  const allFlavors = flavorData.map(toFlavor);
+  return boxes.map((box) => toProduct(box, allFlavors));
 }
 
 export async function getProductBySlug(slug: string): Promise<Product | null> {
   const box = boxes.find((b) => b.slug === slug);
-  return box ? toProduct(box) : null;
+  return box ? toProduct(box, flavorData.map(toFlavor)) : null;
 }
 
 export async function getProductSlugs(): Promise<string[]> {
@@ -163,10 +190,10 @@ export async function getCollection(handle: string): Promise<Collection | null> 
   if (handle !== "todas") return null;
   return {
     handle,
-    title: "Las cajas",
+    title: collectionPage.title,
     products: await getProducts(),
     filters: [
-      { id: "todas", label: "Todas", color: null },
+      { id: "todas", label: catalogLabels.allFilter, color: null },
       ...flavorData.map((f) => ({ id: f.id, label: f.name, color: f.color })),
     ],
   };

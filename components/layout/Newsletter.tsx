@@ -1,7 +1,7 @@
 "use client";
 
 import { useId, useState } from "react";
-import { buyButton } from "@/components/ui/buttons";
+import { buyButtonFill } from "@/components/ui/buttons";
 
 interface NewsletterProps {
   title: string;
@@ -77,8 +77,7 @@ export function Newsletter(t: NewsletterProps) {
                 aria-describedby={status === "email-error" ? messageId : undefined}
                 className="min-w-0 flex-1 bg-transparent px-3.5 text-mg-body placeholder:text-mg-ink-3 focus-visible:outline-offset-0"
               />
-              {/* h-auto: ocupa el alto del campo (52 menos el borde) */}
-              <button type="submit" className={`${buyButton} !h-auto shrink-0`}>
+              <button type="submit" className={`${buyButtonFill} shrink-0`}>
                 {t.submit}
               </button>
             </div>

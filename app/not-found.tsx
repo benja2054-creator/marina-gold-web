@@ -21,7 +21,7 @@ export default function NotFound() {
             {t.cta}
             <ArrowRightIcon className="h-icon-sm w-icon-sm" />
           </Link>
-          <Link href="/" className={`${secondaryButton} md:flex-1`}>
+          <Link href="/" className={`${secondaryButton} justify-center md:flex-1`}>
             {t.home}
           </Link>
         </div>

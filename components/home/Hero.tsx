@@ -45,7 +45,8 @@ export function Hero({ eyebrow, title, cta, ctaHref, mobile, desktop }: HeroProp
     >
       {mobileImg && desktopImg ? (
         <picture>
-          <source media="(min-width: 768px)" srcSet={desktopImg.srcSet} sizes="100vw" />
+          {/* Sin optimización (GitHub Pages) getImageProps no genera srcSet: se usa el src directo */}
+          <source media="(min-width: 768px)" srcSet={desktopImg.srcSet ?? desktopImg.src} sizes="100vw" />
           <img {...mobileImg} alt={mobile.alt} className={imgClass} />
         </picture>
       ) : (

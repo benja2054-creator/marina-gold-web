@@ -23,6 +23,9 @@ interface PhotoProps {
   fetchPriority?: "high" | "low" | "auto";
   /** Nombre del archivo arriba (galería, donde abajo van los segmentos) */
   labelTop?: boolean;
+  /** Imagen decorativa (p. ej. la segunda foto del hover): sin texto alternativo para lectores de pantalla */
+  decorative?: boolean;
+  /** Solo tamaño y márgenes. La raíz ya es `relative`: para posicionarla, envolverla en un contenedor. */
   className?: string;
   children?: React.ReactNode;
 }
@@ -39,6 +42,7 @@ export function Photo({
   dark = false,
   fetchPriority,
   labelTop = false,
+  decorative = false,
   className = "",
   children,
 }: PhotoProps) {
@@ -47,7 +51,7 @@ export function Photo({
       {image.exists ? (
         <Image
           src={image.src}
-          alt={image.alt}
+          alt={decorative ? "" : image.alt}
           fill
           sizes={sizes}
           fetchPriority={fetchPriority}
@@ -56,8 +60,9 @@ export function Photo({
         />
       ) : (
         <div
-          role="img"
-          aria-label={image.alt}
+          role={decorative ? undefined : "img"}
+          aria-label={decorative ? undefined : image.alt}
+          aria-hidden={decorative || undefined}
           className={`absolute inset-0 flex p-2 ${labelTop ? "items-start" : "items-end"}`}
         >
           <span

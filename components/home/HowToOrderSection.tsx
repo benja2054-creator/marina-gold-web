@@ -32,21 +32,21 @@ export function HowToOrderSection(props: HowToOrderProps) {
         <p className="mt-2.5 text-mg-body leading-body text-mg-ink-2">{body}</p>
 
         <div className="mt-6 grid grid-cols-2 gap-2.5 lg:grid-cols-4">
-          <Link href={web.href} className={`${primaryButton} col-span-2 justify-start lg:col-span-1`}>
+          <Link href={web.href} className={`${primaryButton} col-span-2 justify-start gap-4 lg:col-span-1`}>
             <BagIcon className="h-icon-md w-icon-md shrink-0" />
             <span>{web.label}</span>
             <ArrowRightIcon className="ml-auto h-icon-sm w-icon-sm shrink-0" />
           </Link>
-          <a href={whatsapp.href} className={`${secondaryButton} col-span-2 justify-start lg:col-span-1`}>
+          <a href={whatsapp.href} className={`${secondaryButton} col-span-2 justify-start gap-4 lg:col-span-1`}>
             <WhatsAppIcon className="h-icon-md w-icon-md shrink-0" />
             <span>{whatsapp.label}</span>
             <ArrowRightIcon className="ml-auto h-icon-sm w-icon-sm shrink-0" />
           </a>
-          <a href={rappi.href} className={`${secondaryButton} gap-3`}>
+          <a href={rappi.href} className={`${secondaryButton} justify-center gap-3`}>
             <ScooterIcon className="h-icon-md w-icon-md shrink-0" />
             {rappi.label}
           </a>
-          <a href={pedidosYa.href} className={`${secondaryButton} gap-3`}>
+          <a href={pedidosYa.href} className={`${secondaryButton} justify-center gap-3`}>
             <ScooterIcon className="h-icon-md w-icon-md shrink-0" />
             {pedidosYa.label}
           </a>

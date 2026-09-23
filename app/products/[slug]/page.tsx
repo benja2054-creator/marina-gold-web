@@ -59,7 +59,11 @@ export default async function ProductPage({ params }: Props) {
 
   return (
     <ProductProvider product={product}>
-      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }} />
+      {/* "<" escapado para que un texto con </script> (p. ej. desde Shopify) no cierre la etiqueta */}
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd).replace(/</g, "\\u003c") }}
+      />
 
       <div className="mx-auto md:max-w-product lg:mg-container lg:grid lg:grid-cols-[58fr_42fr] lg:items-start lg:gap-12 lg:pt-8">
         <Gallery images={product.images} title={product.title} />
@@ -67,7 +71,8 @@ export default async function ProductPage({ params }: Props) {
           <PurchasePanel />
           <Highlights items={productPage.highlights} />
           <div className="px-gutter pt-2 lg:px-0">
-            <Accordion items={accordions} defaultOpen={[0]} />
+            {/* Directamente bajo el H1 del producto: títulos h2 */}
+            <Accordion items={accordions} defaultOpen={[0]} headingLevel={2} />
           </div>
         </div>
       </div>

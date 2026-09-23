@@ -37,8 +37,12 @@ export interface BoxData {
   /** Nombre completo (ficha): "Caja Surtida" */
   title: string;
   subtitle: string;
-  /** Párrafos de DESCRIPCIÓN en la ficha. Se admite **negrita**. */
-  description: string[];
+  /**
+   * DESCRIPCIÓN de la ficha: primer párrafo (qué es) y último (empaque). Se admite **negrita**.
+   * El párrafo del medio ("Caja de 12: …") se genera solo desde `contents`.
+   */
+  intro: string;
+  packaging: string;
   /** Sabores que trae la caja, en orden */
   flavors: FlavorId[];
   /** Cuántos bombones de cada sabor trae cada tamaño */
@@ -115,18 +119,19 @@ export const flavors: FlavorData[] = [
  * 1 caja cerrada · 2 caja abierta vista desde arriba · 3 bombón cortado mostrando el relleno
  * 4 detalle de textura · 5 foto de ambiente o regalo.
  */
+
+// TODO: confirmar "caja rígida con lazo" con el cliente.
+const PACKAGING = "Llega en caja rígida con lazo, lista para regalar. O para esconderla en tu cuarto, no juzgamos.";
+
 export const boxes: BoxData[] = [
   {
     slug: "surtida",
     name: "Surtida",
     title: "Caja Surtida",
     subtitle: "Los tres sabores en una sola caja",
-    description: [
+    intro:
       "Para los que no se deciden (o no quieren decidir). La Surtida trae los tres sabores de la casa, hechos a mano en tandas chiquitas.",
-      "**Caja de 12:** 4 de manjar de olla, 4 de maracuyá y 4 de coulis de fresa.\n**Caja de 6:** 2 de cada sabor.",
-      // TODO: confirmar "caja rígida con lazo" con el cliente.
-      "Llega en caja rígida con lazo, lista para regalar. O para esconderla en tu cuarto, no juzgamos.",
-    ],
+    packaging: PACKAGING,
     flavors: ["manjar-de-olla", "maracuya", "coulis-de-fresa"],
     contents: {
       6: { "manjar-de-olla": 2, maracuya: 2, "coulis-de-fresa": 2 },
@@ -147,12 +152,9 @@ export const boxes: BoxData[] = [
     name: "Manjar de olla",
     title: "Caja Manjar de olla",
     subtitle: "Manjar de olla en chocolate negro",
-    description: [
+    intro:
       "El clásico de la casa: manjar de olla hecho a fuego lento, dentro de una cobertura de chocolate negro que lo equilibra.",
-      "**Caja de 12:** 12 bombones de manjar de olla.\n**Caja de 6:** 6 bombones de manjar de olla.",
-      // TODO: confirmar "caja rígida con lazo" con el cliente.
-      "Llega en caja rígida con lazo, lista para regalar. O para esconderla en tu cuarto, no juzgamos.",
-    ],
+    packaging: PACKAGING,
     flavors: ["manjar-de-olla"],
     contents: {
       6: { "manjar-de-olla": 6 },
@@ -174,12 +176,8 @@ export const boxes: BoxData[] = [
     name: "Maracuyá",
     title: "Caja Maracuyá",
     subtitle: "Maracuyá en chocolate de leche",
-    description: [
-      "Ácido, cremoso y bien peruano: maracuyá dentro de una cobertura de chocolate de leche.",
-      "**Caja de 12:** 12 bombones de maracuyá.\n**Caja de 6:** 6 bombones de maracuyá.",
-      // TODO: confirmar "caja rígida con lazo" con el cliente.
-      "Llega en caja rígida con lazo, lista para regalar. O para esconderla en tu cuarto, no juzgamos.",
-    ],
+    intro: "Ácido, cremoso y bien peruano: maracuyá dentro de una cobertura de chocolate de leche.",
+    packaging: PACKAGING,
     flavors: ["maracuya"],
     contents: {
       6: { maracuya: 6 },
@@ -200,12 +198,9 @@ export const boxes: BoxData[] = [
     name: "Coulis de fresa",
     title: "Caja Coulis de fresa",
     subtitle: "Coulis de fresa en chocolate blanco",
-    description: [
+    intro:
       "Fresas reducidas a coulis dentro de una cobertura de chocolate blanco. El más coqueto de la caja, y lo sabe.",
-      "**Caja de 12:** 12 bombones de coulis de fresa.\n**Caja de 6:** 6 bombones de coulis de fresa.",
-      // TODO: confirmar "caja rígida con lazo" con el cliente.
-      "Llega en caja rígida con lazo, lista para regalar. O para esconderla en tu cuarto, no juzgamos.",
-    ],
+    packaging: PACKAGING,
     flavors: ["coulis-de-fresa"],
     contents: {
       6: { "coulis-de-fresa": 6 },

@@ -19,7 +19,8 @@ export function Gallery({ images, title }: { images: ImageAsset[]; title: string
   const goTo = (index: number) => {
     const el = scrollerRef.current;
     if (!el) return;
-    el.scrollTo({ left: index * el.clientWidth, behavior: "smooth" });
+    const reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+    el.scrollTo({ left: index * el.clientWidth, behavior: reduceMotion ? "auto" : "smooth" });
   };
 
   return (

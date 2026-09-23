@@ -14,6 +14,8 @@ interface AccordionProps {
   defaultOpen?: number[];
   /** "faq": pregunta en texto normal 14.5/700, fila mínima de 60, respuesta 14/1.6 */
   variant?: "default" | "faq";
+  /** Nivel del título de cada fila según la jerarquía de la página (h2 bajo un h1, h3 bajo un h2) */
+  headingLevel?: 2 | 3;
 }
 
 /*
@@ -21,10 +23,11 @@ interface AccordionProps {
  * "+"/"−" de 16 a la derecha, línea inferior. Contenido con padding inferior 20, 14.5/1.6.
  * Se pueden abrir varios a la vez [PROPUESTO]. La altura se anima en 250 ms.
  */
-export function Accordion({ items, defaultOpen = [], variant = "default" }: AccordionProps) {
+export function Accordion({ items, defaultOpen = [], variant = "default", headingLevel = 3 }: AccordionProps) {
   const [open, setOpen] = useState<number[]>(defaultOpen);
   const baseId = useId();
   const faq = variant === "faq";
+  const Heading = headingLevel === 2 ? "h2" : "h3";
 
   return (
     <div>
@@ -34,7 +37,7 @@ export function Accordion({ items, defaultOpen = [], variant = "default" }: Acco
         const panelId = `${baseId}-p${i}`;
         return (
           <div key={item.title} className="border-b border-mg-line">
-            <h3>
+            <Heading>
               <button
                 id={buttonId}
                 type="button"
@@ -54,7 +57,7 @@ export function Accordion({ items, defaultOpen = [], variant = "default" }: Acco
                   <PlusIcon className="h-icon-sm w-icon-sm shrink-0" />
                 )}
               </button>
-            </h3>
+            </Heading>
             <div
               id={panelId}
               role="region"

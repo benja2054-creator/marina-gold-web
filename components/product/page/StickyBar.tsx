@@ -22,9 +22,14 @@ export function StickyBar() {
   useEffect(() => {
     const target = addButtonRef.current;
     if (!target || !("IntersectionObserver" in window)) return;
-    const observer = new IntersectionObserver(([entry]) => {
-      setVisible(!entry.isIntersecting && entry.boundingClientRect.top < 0);
-    });
+    // El header es fijo: el botón deja de verse cuando pasa por debajo de él, no del borde de la ventana.
+    const headerHeight = parseFloat(getComputedStyle(document.documentElement).getPropertyValue("--mg-header-h")) || 0;
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        setVisible(!entry.isIntersecting && entry.boundingClientRect.top < headerHeight);
+      },
+      { rootMargin: `-${headerHeight}px 0px 0px 0px` },
+    );
     observer.observe(target);
     return () => observer.disconnect();
   }, [addButtonRef]);
