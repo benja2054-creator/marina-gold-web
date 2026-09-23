@@ -1,5 +1,5 @@
 # Publica la maqueta en GitHub Pages (ambiente de pruebas) en cada push a main.
-# URL: https://benja2054-creator.github.io/marina-gold-web/
+# URL: https://marinagoldpe.github.io/
 name: Publicar en GitHub Pages
 
 on:

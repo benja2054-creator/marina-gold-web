@@ -154,13 +154,13 @@ Las claves van en `.env.local` (ver `.env.example`). Nunca se guardan claves rea
 
 ## GitHub y ambiente de pruebas
 
-- Repositorio (**público**): <https://github.com/benja2054-creator/marina-gold-web>, rama `main`.
-- Ambiente de pruebas en **GitHub Pages**: <https://benja2054-creator.github.io/marina-gold-web/>
+- Repositorio (**público**): <https://github.com/marinagoldpe/marinagoldpe.github.io>, rama `main`, en la organización gratuita `marinagoldpe` (administrada desde la cuenta personal benja2054-creator).
+- Ambiente de pruebas en **GitHub Pages**: <https://marinagoldpe.github.io/>
 - Versión local: <http://localhost:3000> con `npm run dev`.
 
 Cada cambio se hace en local, se guarda con un commit y se sube con `git push`. El workflow `.github/workflows/pages.yml` vuelve a publicar la página sola en 1–2 minutos (estado en la pestaña **Actions** del repositorio).
 
-Cómo funciona la versión de GitHub Pages: el workflow compila con `GITHUB_PAGES=true`. Eso activa en `next.config.ts` la exportación estática (`out/`), la subruta `/marina-gold-web` y las imágenes sin optimizar, porque Pages no tiene servidor. En local no cambia nada. El sitio está marcado para que Google no lo indexe, pero cualquiera con el enlace puede verlo.
+Cómo funciona la versión de GitHub Pages: el workflow compila con `GITHUB_PAGES=true`. Eso activa en `next.config.ts` la exportación estática (`out/`) y las imágenes sin optimizar. Como el repositorio se llama `marinagoldpe.github.io`, el sitio vive en la raíz del dominio (sin subruta), porque Pages no tiene servidor. En local no cambia nada. El sitio está marcado para que Google no lo indexe, pero cualquiera con el enlace puede verlo.
 
 Alternativa futura: Vercel, que permite repositorio privado e imágenes optimizadas.
 

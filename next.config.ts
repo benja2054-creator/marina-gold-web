@@ -2,8 +2,9 @@ import type { NextConfig } from "next";
 
 /*
  * GitHub Pages (ambiente de pruebas): el workflow .github/workflows/pages.yml compila con
- * GITHUB_PAGES=true y PAGES_BASE_PATH=/marina-gold-web. En ese caso se exporta HTML estático
- * (carpeta out/), bajo la subruta del repositorio y sin optimización de imágenes (Pages no
+ * GITHUB_PAGES=true y PAGES_BASE_PATH (vacío en marinagoldpe.github.io, que publica en la raíz
+ * del dominio; sería /nombre-del-repo en un repositorio común). En ese caso se exporta HTML estático
+ * (carpeta out/), bajo esa subruta y sin optimización de imágenes (Pages no
  * tiene servidor). En local y en Vercel no cambia nada.
  */
 const isPages = process.env.GITHUB_PAGES === "true";
