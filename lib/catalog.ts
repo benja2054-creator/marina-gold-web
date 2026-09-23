@@ -18,7 +18,7 @@ import {
   type FlavorId,
 } from "@/data/catalog";
 import { catalogLabels, collectionPage, productCard } from "@/data/content";
-import { imageAsset, type ImageAsset } from "@/lib/images";
+import { firstAvailable, image, type ImageAsset } from "@/lib/images";
 import { applyDiscount, bulkSavings, pricePerUnit } from "@/lib/pricing";
 import { joinList } from "@/lib/text";
 
@@ -72,6 +72,11 @@ export interface Product {
   minCompareAtPrice: number | null;
   /** Ahorro de la caja de 12 frente a dos de 6 */
   bulkSavings: number;
+  /** Foto de la tarjeta de la grilla (también miniatura de la barra fija) */
+  cardImage: ImageAsset;
+  /** Segunda foto del hover; si no existe (exists: false) la tarjeta no cambia de foto */
+  hoverImage: ImageAsset;
+  /** Galería de la ficha (5 fotos o placeholders) */
   images: ImageAsset[];
 }
 
@@ -89,7 +94,7 @@ export interface Collection {
 }
 
 function toFlavor(f: FlavorData): Flavor {
-  return { ...f, image: imageAsset(f.image.src, f.image.alt, f.image.brief) };
+  return { ...f, image: image(f.image) };
 }
 
 function badgeFor(box: BoxData): Badge | null {
@@ -162,9 +167,9 @@ function toProduct(box: BoxData, allFlavors: Flavor[]): Product {
     minPrice: small.price,
     minCompareAtPrice: small.compareAtPrice,
     bulkSavings: bulkSavings(small.price, large.price),
-    images: box.imageBriefs.map((brief, i) =>
-      imageAsset(`/images/products/${box.slug}-${i + 1}.jpg`, `${box.title}: ${brief.toLowerCase()}`, brief),
-    ),
+    cardImage: image(box.images.card),
+    hoverImage: image(box.images.hover),
+    images: box.images.gallery.map((slot) => firstAvailable(Array.isArray(slot) ? slot : [slot])),
   };
 }
 

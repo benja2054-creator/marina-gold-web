@@ -11,10 +11,6 @@ interface HeroProps {
   desktop: ImageAsset;
 }
 
-// Tamaños de exportación de las fotos (3x de 375 × 469 y 16:9 para pantallas anchas)
-const MOBILE = { width: 1125, height: 1407 };
-const DESKTOP = { width: 2560, height: 1440 };
-
 function Placeholder({ image, className }: { image: ImageAsset; className: string }) {
   return (
     <div role="img" aria-label={image.alt} className={`absolute inset-0 items-start p-2.5 ${className}`}>
@@ -34,8 +30,10 @@ function Placeholder({ image, className }: { image: ImageAsset; className: strin
  */
 export function Hero({ eyebrow, title, cta, ctaHref, mobile, desktop }: HeroProps) {
   const common = { alt: mobile.alt, sizes: "100vw", fetchPriority: "high" as const, loading: "eager" as const };
-  const mobileImg = mobile.exists ? getImageProps({ ...common, ...MOBILE, src: mobile.src }).props : null;
-  const desktopImg = desktop.exists ? getImageProps({ ...common, ...DESKTOP, src: desktop.src }).props : null;
+  // Tamaños del manifiesto data/imagenes.ts (1600 × 2000 y 2560 × 1440)
+  const size = (i: ImageAsset) => ({ width: i.width, height: i.height, src: i.src });
+  const mobileImg = mobile.exists ? getImageProps({ ...common, ...size(mobile) }).props : null;
+  const desktopImg = desktop.exists ? getImageProps({ ...common, ...size(desktop) }).props : null;
   const imgClass = "absolute inset-0 h-full w-full object-cover";
 
   return (

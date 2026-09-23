@@ -30,3 +30,15 @@ Registro de contradicciones y huecos del diseño, y cómo se resolvieron. Aproba
 - Las ocasiones enlazan a /collections/todas; FAQ del menú lateral enlaza a /products/surtida#preguntas.
 - Página 404 con título "Esta página no existe. *Alguien se la comió.*" (texto de ejemplo).
 - Los tramos de la guía de estilo miden 2400 × 1800 px porque la lámina mide 2400 px de ancho.
+
+## Integración de las fotos aprobadas (2026-09-23)
+
+- Fuente de verdad: `referencias/fotos-originales/marina-gold-imagenes-aprobadas/LEEME-imagenes.md` y `referencias/imagenes-requeridas.pdf`. Los originales no se modifican ni se sirven.
+- Los nombres del zip son los definitivos: el código apunta a ellos a través de `data/imagenes.ts` (manifiesto que usan el sitio y `npm run imagenes`).
+- Recorte: las fotos 4:5 llegan a 1856 × 2304 (0,806, no 0,8 exacto). Se recortan 13 px de ancho (0,7 %), centrado, para quedar en 4:5 exacto. No afecta al producto. Las 1:1 no se recortan.
+- Formato: WebP calidad 80, sRGB, sin metadatos. Todas quedan bajo 200 KB sin bajar la calidad. En local/Vercel, next/image además genera tamaños por dispositivo; en GitHub Pages se sirven estos WebP directamente.
+- Hover de las tarjetas (n.º 19 pendiente): el cambio de foto solo se activa cuando existe la foto `caja-*-abierta`.
+- Fichas de Manjar, Maracuyá y Coulis (n.º 20 pendiente): la posición 1 de la galería usa la foto de la tarjeta hasta que llegue `{caja}-galeria-1`; el resto son placeholders.
+- La miniatura de la barra fija reutiliza la foto de la tarjeta (n.º 5 a 8), como indica el documento.
+- Diferencias con el plan (según el LEEME): cajas cerradas con faja en vez de abiertas o con lazo; la n.º 14 lleva cinta roja; la foto de Cumpleaños (n.º 16) no tiene vela, muestra luces y confeti (su texto alternativo lo describe así). Los textos pequeños impresos en las cajas son de la IA y no sirven como arte final.
+- `og-compartir.jpg` (n.º 22) está en el manifiesto pero todavía no se conecta a los metadatos.

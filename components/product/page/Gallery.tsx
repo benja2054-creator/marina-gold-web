@@ -31,7 +31,7 @@ export function Gallery({ images, title }: { images: ImageAsset[]; title: string
             <button
               type="button"
               onClick={() => goTo(i)}
-              aria-label={`${i + 1} ${t.photoOf} ${images.length}: ${image.brief}`}
+              aria-label={`${i + 1} ${t.photoOf} ${images.length}: ${image.alt}`}
               aria-current={i === active}
               className={`block w-gallery-thumb border transition-colors duration-fast ${
                 i === active ? "border-mg-black" : "border-transparent hover:border-mg-line"
@@ -60,7 +60,7 @@ export function Gallery({ images, title }: { images: ImageAsset[]; title: string
                 image={image}
                 ratio="box"
                 bg="bg-mg-placeholder"
-                sizes="(min-width: 1024px) 640px, (min-width: 768px) 600px, 100vw"
+                sizes="(min-width: 1024px) 528px, (min-width: 768px) 600px, 100vw"
                 fetchPriority={i === 0 ? "high" : undefined}
                 labelTop
               />

@@ -104,18 +104,8 @@ export const home = {
     eyebrow: "Edición Primavera",
     title: "Nueva colección",
     cta: "Comprar",
-    image: {
-      mobile: {
-        src: "/images/hero-mobile.jpg",
-        alt: "Caja Surtida de Marina Gold abierta, con bombones de los tres sabores",
-        brief: "Caja Surtida abierta (vertical 4:5)",
-      },
-      desktop: {
-        src: "/images/hero-desktop.jpg",
-        alt: "Caja Surtida de Marina Gold abierta, con bombones de los tres sabores",
-        brief: "Caja Surtida abierta (horizontal 16:9)",
-      },
-    },
+    // Claves de data/imagenes.ts
+    image: { mobile: "home-hero", desktop: "home-hero-desktop" } as const,
   },
   flavors: {
     eyebrow: "Los bombones",
@@ -134,11 +124,7 @@ export const home = {
     body: "Todo empezó en mi cocina, probando rellenos a las dos de la mañana para mis amigas. Quería un bombón que supiera a Lima: al manjar de la casa, al maracuyá del mercado. Cada caja la armamos a mano, en tandas chiquitas, para que te llegue como si te la hubiera llevado yo.",
     signature: "— Marina",
     link: "Conoce la historia",
-    image: {
-      src: "/images/marina-1.jpg",
-      alt: "Marina en su cocina, con delantal negro y una bandeja de bombones",
-      brief: "Marina en su cocina, delantal negro, bandeja de bombones en mano",
-    },
+    image: "marina" as const,
   },
   howToOrder: {
     eyebrow: "Cómo pedir",
@@ -229,25 +215,25 @@ export const productPage = {
         title: "Regalo",
         // TODO: confirmar "tarjeta con dedicatoria" con el cliente.
         text: "Con lazo y una tarjeta con tu dedicatoria.",
-        image: { src: "/images/ocasiones/regalo.jpg", alt: "Caja de bombones con lazo y una tarjeta escrita a mano", brief: "Caja con lazo y tarjeta escrita a mano" },
+        image: "ocasion-regalo" as const,
       },
       {
         id: "cumpleanos",
         title: "Cumpleaños",
         text: "Mejor que una torta que nadie termina.",
-        image: { src: "/images/ocasiones/cumpleanos.jpg", alt: "Caja de bombones abierta con una vela encendida", brief: "Caja abierta con una vela encendida" },
+        image: "ocasion-cumpleanos" as const,
       },
       {
         id: "aniversario",
         title: "Aniversario",
         text: "Doce formas de decir “te quiero”.",
-        image: { src: "/images/ocasiones/aniversario.jpg", alt: "Caja de 12 bombones sobre una mesa para dos", brief: "Caja de 12 bombones en una mesa para dos" },
+        image: "ocasion-aniversario" as const,
       },
       {
         id: "antojo",
         title: "Antojo",
         text: "No necesitas una ocasión. Esta es la ocasión.",
-        image: { src: "/images/ocasiones/antojo.jpg", alt: "Mano tomando un bombón de una caja abierta", brief: "Mano tomando un bombón de la caja abierta" },
+        image: "ocasion-antojo" as const,
       },
     ],
   },

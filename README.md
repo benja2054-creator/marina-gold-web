@@ -45,14 +45,16 @@ app/                 Páginas (App Router)
 components/          Componentes de interfaz (layout/, ui/, íconos y logos de pago)
 data/catalog.ts      Catálogo: sabores, cajas, tamaños, precios base y estados
 data/content.ts      Textos del sitio (anuncio, menú, home, ficha, FAQ, footer…)
+data/imagenes.ts     Manifiesto de imágenes: n.º del documento, original, versión web, tamaño, peso y texto alternativo
 lib/catalog.ts       Funciones de acceso (getProducts, getProductBySlug, getCollection)
 lib/pricing.ts       Cálculos de precio (por bombón, "Desde", ahorro, oferta)
-lib/images.ts        Detecta si cada foto existe en /public; si no, se muestra el placeholder
+lib/images.ts        Resuelve cada imagen del manifiesto; si la versión web no existe, se muestra el placeholder
 styles/tokens.css    Tokens de diseño (copia exacta de referencias/diseno/tokens.css)
 styles/tokens-extendidos.css  Medidas de las notas que no están en tokens.css y ajustes tablet/escritorio
-public/images/       Fotografías (ver lista abajo)
+public/images/       Versiones web optimizadas (las genera `npm run imagenes`; ver "Imágenes")
 referencias/diseno/  Paquete de diseño aprobado
-scripts/             Utilidades (p. ej. cortar las láminas)
+referencias/fotos-originales/  Fotos aprobadas en alta resolución (intactas, no se sirven en la web)
+scripts/             Utilidades: cortar las láminas y optimizar las imágenes
 ```
 
 ## Dónde se edita cada cosa
@@ -64,38 +66,63 @@ scripts/             Utilidades (p. ej. cortar las láminas)
 | Sabores (nombre, relleno, cobertura, color, descripción) | `data/catalog.ts` → `flavors` |
 | Precios | `data/catalog.ts` → `BASE_PRICES` (en céntimos). El precio por bombón, el "Desde", el ahorro y el precio con oferta se calculan solos en `lib/pricing.ts` |
 | Colores, fuentes, tamaños, espaciados, radios, sombras | `styles/tokens.css`. Las variables `--mg-*` se mapean en `tailwind.config.ts` (p. ej. `bg-mg-red`, `text-mg-ink-2`) |
-| Imágenes | Suelta los archivos en `public/images/` con el nombre exacto que muestra cada placeholder |
+| Imágenes | Copiar el original aprobado en `referencias/fotos-originales/marina-gold-imagenes-aprobadas/` y correr `npm run imagenes` (ver "Imágenes"). Textos alternativos en `data/imagenes.ts` |
 
 Los textos marcados con `TODO` en el código son de ejemplo y aún no están confirmados.
 
 ## Imágenes
 
-Cada imagen se muestra como placeholder con su proporción fija, el color que indican las notas y el nombre de archivo esperado. Al copiar la foto con ese nombre en `public/images/`, aparece sin mover la maquetación.
+Las fotos aprobadas llegan en JPG de alta resolución y **no se tocan**: se guardan en
+`referencias/fotos-originales/marina-gold-imagenes-aprobadas/` (junto con `LEEME-imagenes.md` y la carpeta
+`packaging/`, que es solo referencia del diseño de la caja y no va en la web). El sitio usa versiones
+optimizadas que genera un script a partir de esos originales.
 
-- En desarrollo (`npm run dev`) basta con recargar la página.
-- En producción (`npm run build`) las páginas son estáticas: hay que volver a compilar para que aparezcan las fotos nuevas.
+**Flujo para agregar o cambiar una foto**
 
-Formato JPG. Tamaño recomendado: 1200 × 1500 (4:5), 1200 × 1200 (1:1), 1125 × 1407 (hero móvil) y 2560 × 1440 (hero escritorio).
+1. Copiar el original, con su nombre definitivo (el del documento de imágenes), en la carpeta de originales.
+2. Correr:
+   ```bash
+   npm run imagenes
+   ```
+   El script (`scripts/optimizar-imagenes.mjs`, con sharp) lee `data/imagenes.ts` y, por cada foto:
+   - la lleva al tamaño "Generar a" del documento, recortando lo mínimo y centrado si la proporción no calza exacto;
+   - la exporta en WebP (sRGB, sin metadatos), empezando en calidad 80 y bajando como máximo a 72 para quedar bajo 200 KB (350 KB el hero);
+   - muestra una tabla con el peso final, la calidad y el recorte, y la lista de fotos pendientes.
+3. Revisar en `npm run dev`, hacer commit y `git push` (GitHub Pages se actualiza solo).
 
-| Archivo | Proporción | Qué debe mostrar |
+Mientras falte un original, el sitio muestra un placeholder con la proporción correcta y el nombre del archivo esperado.
+Nombres, destino, tamaño, peso y texto alternativo de cada imagen: `data/imagenes.ts`.
+
+**Estructura de `public/images`**
+
+```
+public/images/
+  sabores/              sabor-manjar.webp, sabor-maracuya.webp, sabor-fresa.webp      1200 × 1200
+  cajas/                caja-surtida.webp, caja-manjar.webp, caja-maracuya.webp,       1000 × 1250
+                        caja-coulis-fresa.webp  (+ caja-*-abierta.webp para el hover)
+  galeria-surtida/      surtida-galeria-1..5.webp                                     1600 × 2000
+  galeria-manjar/       manjar-galeria-1..5.webp          (pendientes)                1600 × 2000
+  galeria-maracuya/     maracuya-galeria-1..5.webp        (pendientes)                1600 × 2000
+  galeria-coulis-fresa/ coulis-fresa-galeria-1..5.webp    (pendientes)                1600 × 2000
+  ocasiones/            ocasion-regalo/-cumpleanos/-aniversario/-antojo.webp           800 × 1000
+  hero/                 home-hero.webp (4:5), home-hero-desktop.webp (16:9)  (pendientes)
+  marina/               marina.webp                                  (pendiente)      1200 × 1500
+  og/                   og-compartir.jpg  (pendiente; vista previa al compartir)      1200 × 630
+```
+
+**Dónde se usa cada foto**
+
+| N.º | Original | Dónde va |
 | --- | --- | --- |
-| `hero-mobile.jpg` | 4:5 | Caja Surtida abierta, vertical. El texto blanco va centrado encima: zona central tranquila |
-| `hero-desktop.jpg` | 16:9 | Caja Surtida abierta, horizontal (se usa desde 768 px). Misma zona central tranquila |
-| `products/[slug]-1.jpg` | 4:5 | Caja cerrada (en la Surtida, con lazo rojo) |
-| `products/[slug]-2.jpg` | 4:5 | Caja abierta vista desde arriba (también se ve al pasar el mouse por la tarjeta) |
-| `products/[slug]-3.jpg` | 4:5 | Bombón cortado mostrando el relleno |
-| `products/[slug]-4.jpg` | 4:5 | Detalle de textura de la cobertura |
-| `products/[slug]-5.jpg` | 4:5 | Foto de ambiente o de regalo |
-| `flavors/manjar-de-olla.jpg` | 1:1 | Bombón de manjar de olla en chocolate negro, partido a la mitad, relleno visible |
-| `flavors/maracuya.jpg` | 1:1 | Bombón de maracuyá en chocolate de leche, partido, relleno amarillo brillante |
-| `flavors/coulis-de-fresa.jpg` | 1:1 | Bombón de chocolate blanco con coulis de fresa escurriendo |
-| `ocasiones/regalo.jpg` | 4:5 | Caja con lazo y tarjeta escrita a mano |
-| `ocasiones/cumpleanos.jpg` | 4:5 | Caja abierta con una vela encendida |
-| `ocasiones/aniversario.jpg` | 4:5 | Caja de 12 bombones en una mesa para dos |
-| `ocasiones/antojo.jpg` | 4:5 | Mano tomando un bombón de la caja abierta |
-| `marina-1.jpg` | 4:5 | Marina en su cocina, delantal negro, bandeja de bombones en mano |
-
-`[slug]` es `surtida`, `manjar-de-olla`, `maracuya` y `coulis-de-fresa`: 20 fotos de cajas, 30 imágenes en total. Las fotos de sabor van sobre fondo del color "deep" de su sabor; conviene que el fondo de la foto combine con él.
+| 1 · 21 | home-hero.jpg · home-hero-desktop.jpg | Hero de la home (4:5 en móvil, 16:9 desde 768 px) — pendientes |
+| 2 · 3 · 4 | sabor-manjar/maracuya/fresa.jpg | Franjas de sabores de la home y "¿Qué hay dentro?" de la ficha |
+| 5 a 8 | caja-surtida/manjar/maracuya/coulis-fresa.jpg | Tarjetas de la grilla (home y colección) y miniatura de la barra fija |
+| 9 | marina.jpg | "Hecho por Marina" — pendiente |
+| 10 a 14 | surtida-galeria-1..5.jpg | Galería de la ficha Surtida (la n.º 13, posición 4, pendiente) |
+| 15 a 18 | ocasion-*.jpg | "¿Para qué ocasión?" en la ficha (la n.º 18, Antojo, pendiente) |
+| 19 | caja-*-abierta.jpg | Segunda foto al pasar el mouse por la tarjeta — pendientes. El cambio de foto se activa solo cuando existen |
+| 20 | {manjar, maracuya, coulis-fresa}-galeria-1..5.jpg | Galerías de las otras fichas — pendientes. Mientras falte la 1, se usa la foto de la tarjeta |
+| 22 | og-compartir.jpg | Vista previa al compartir — pendiente, aún no conectada |
 
 ## Textos pendientes de confirmar (TODO)
 

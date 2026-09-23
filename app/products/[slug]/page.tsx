@@ -11,7 +11,7 @@ import { PurchasePanel } from "@/components/product/page/PurchasePanel";
 import { StickyBar } from "@/components/product/page/StickyBar";
 import { brand, productPage } from "@/data/content";
 import { getProductBySlug, getProductSlugs } from "@/lib/catalog";
-import { imageAsset } from "@/lib/images";
+import { image } from "@/lib/images";
 
 type Props = { params: Promise<{ slug: string }> };
 
@@ -38,7 +38,7 @@ export default async function ProductPage({ params }: Props) {
     { title: productPage.descriptionTitle, content: product.description.map((p) => <RichText key={p} text={p} />) },
     ...productPage.accordions.map((a) => ({ title: a.title, content: a.body.map((p) => <p key={p}>{p}</p>) })),
   ];
-  const occasions = productPage.occasions.items.map((o) => ({ ...o, image: imageAsset(o.image.src, o.image.alt, o.image.brief) }));
+  const occasions = productPage.occasions.items.map((o) => ({ ...o, image: image(o.image) }));
   const faq = productPage.faq.items.map((f) => ({ title: f.q, content: <p>{f.a}</p> }));
 
   // Datos estructurados para Google (schema.org/Product)

@@ -6,7 +6,7 @@ import { MarinaSection } from "@/components/home/MarinaSection";
 import { BoxesSection } from "@/components/product/BoxesSection";
 import { home, links } from "@/data/content";
 import { getCollection, getFlavors } from "@/lib/catalog";
-import { imageAsset } from "@/lib/images";
+import { image } from "@/lib/images";
 
 /*
  * Home: orden exacto de la lámina 01 y las notas §5.
@@ -17,7 +17,6 @@ export default async function Home() {
   if (!collection) notFound();
 
   const { hero, marina, howToOrder } = home;
-  const img = (i: { src: string; alt: string; brief: string }) => imageAsset(i.src, i.alt, i.brief);
 
   return (
     <>
@@ -26,8 +25,8 @@ export default async function Home() {
         title={hero.title}
         cta={hero.cta}
         ctaHref="#cajas"
-        mobile={img(hero.image.mobile)}
-        desktop={img(hero.image.desktop)}
+        mobile={image(hero.image.mobile)}
+        desktop={image(hero.image.desktop)}
       />
       <FlavorsSection
         eyebrow={home.flavors.eyebrow}
@@ -43,7 +42,7 @@ export default async function Home() {
         body={marina.body}
         signature={marina.signature}
         link={{ label: marina.link, href: links.story }}
-        image={img(marina.image)}
+        image={image(marina.image)}
       />
       <HowToOrderSection
         eyebrow={howToOrder.eyebrow}

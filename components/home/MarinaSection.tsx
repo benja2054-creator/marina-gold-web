@@ -28,7 +28,7 @@ export function MarinaSection({ eyebrow, title, titleAccent, body, signature, li
           image={image}
           ratio="box"
           bg="bg-mg-placeholder"
-          sizes="(min-width: 1024px) 576px, (min-width: 768px) 344px, 100vw"
+          sizes="(min-width: 1024px) 576px, (min-width: 768px) 344px, calc(100vw - 32px)"
         />
         <div className="mt-6 md:mt-0">
           <p className="mg-eyebrow">{eyebrow}</p>

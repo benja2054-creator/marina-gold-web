@@ -42,7 +42,7 @@ export function FlavorsSection({ eyebrow, titleLines, titleAccent, flavors }: Fl
                 image={flavor.image}
                 ratio="flavor"
                 bg={flavorDeepBg[flavor.color]}
-                sizes="(min-width: 1024px) 33vw, (min-width: 768px) 336px, 100vw"
+                sizes="(min-width: 1024px) calc(33vw - 96px), (min-width: 768px) 341px, calc(100vw - 32px)"
               />
               <div className="flex flex-col pt-1">
                 <div className="flex items-baseline justify-between gap-4 border-b border-mg-black pb-2">

@@ -8,7 +8,8 @@
     "build": "next build",
     "start": "next start",
     "lint": "eslint .",
-    "typecheck": "tsc --noEmit"
+    "typecheck": "tsc --noEmit",
+    "imagenes": "node --disable-warning=MODULE_TYPELESS_PACKAGE_JSON scripts/optimizar-imagenes.mjs"
   },
   "engines": {
     "node": ">=20.9.0"
@@ -27,6 +28,7 @@
     "eslint": "^9.39.5",
     "eslint-config-next": "^16.3.6",
     "postcss": "^8.5.28",
+    "sharp": "^0.35.4",
     "tailwindcss": "3.4",
     "typescript": "5.9"
   }

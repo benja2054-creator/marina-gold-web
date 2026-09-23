@@ -11,6 +11,8 @@
  * calculan en lib/pricing.ts.
  */
 
+import type { ImageKey } from "@/data/imagenes";
+
 export type FlavorId = "manjar-de-olla" | "maracuya" | "coulis-de-fresa";
 
 /** Nombre del color de sabor en tokens.css (--mg-manjar, --mg-manjar-deep…) */
@@ -27,7 +29,8 @@ export interface FlavorData {
   coating: string;
   description: string;
   color: FlavorColor;
-  image: { src: string; alt: string; brief: string };
+  /** Foto 1:1 (data/imagenes.ts). Se usa en la home y en "¿Qué hay dentro?" */
+  image: ImageKey;
 }
 
 export interface BoxData {
@@ -54,8 +57,18 @@ export interface BoxData {
   available: boolean;
   /** Texto que reemplaza "6 y 12 bombones" cuando está agotada */
   restockNote?: string;
-  /** Descripción de cada una de las 5 fotos, en orden (ver README) */
-  imageBriefs: [string, string, string, string, string];
+  /** Fotos (claves de data/imagenes.ts) */
+  images: {
+    /** Tarjeta de la grilla y miniatura de la barra fija */
+    card: ImageKey;
+    /** Segunda foto al pasar el mouse por la tarjeta. Si aún no existe, no hay cambio de foto. */
+    hover: ImageKey;
+    /**
+     * 5 fotos de la galería de la ficha. Cada posición puede ser una lista: se usa la primera
+     * que exista (p. ej. la foto de la tarjeta mientras falta la de la galería).
+     */
+    gallery: (ImageKey | ImageKey[])[];
+  };
 }
 
 // TODO: confirmar precios con el cliente.
@@ -76,11 +89,7 @@ export const flavors: FlavorData[] = [
     description:
       "El manjar de toda la vida, hecho a fuego lento y sin apuro. El chocolate negro lo equilibra; tú solo encárgate de no compartirlo.",
     color: "manjar",
-    image: {
-      src: "/images/flavors/manjar-de-olla.jpg",
-      alt: "Bombón de manjar de olla en chocolate negro, partido a la mitad",
-      brief: "Bombón de manjar partido a la mitad, relleno visible",
-    },
+    image: "sabor-manjar",
   },
   {
     id: "maracuya",
@@ -91,11 +100,7 @@ export const flavors: FlavorData[] = [
     description:
       "Ácido, cremoso y bien peruano. Lo muerdes y te despierta más que el café de las ocho.",
     color: "maracuya",
-    image: {
-      src: "/images/flavors/maracuya.jpg",
-      alt: "Bombón de maracuyá en chocolate de leche, partido con el relleno amarillo a la vista",
-      brief: "Bombón de maracuyá partido, relleno amarillo brillante",
-    },
+    image: "sabor-maracuya",
   },
   {
     id: "coulis-de-fresa",
@@ -106,19 +111,10 @@ export const flavors: FlavorData[] = [
     description:
       "Fresas reducidas a coulis dentro de chocolate blanco. El más coqueto de la caja, y lo sabe.",
     color: "fresa",
-    image: {
-      src: "/images/flavors/coulis-de-fresa.jpg",
-      alt: "Bombón de chocolate blanco con coulis de fresa escurriendo",
-      brief: "Bombón blanco con coulis de fresa escurriendo",
-    },
+    image: "sabor-fresa",
   },
 ];
 
-/*
- * Fotos de cada caja: /images/products/[slug]-1.jpg a [slug]-5.jpg (4:5), en este orden:
- * 1 caja cerrada · 2 caja abierta vista desde arriba · 3 bombón cortado mostrando el relleno
- * 4 detalle de textura · 5 foto de ambiente o regalo.
- */
 
 // TODO: confirmar "caja rígida con lazo" con el cliente.
 const PACKAGING = "Llega en caja rígida con lazo, lista para regalar. O para esconderla en tu cuarto, no juzgamos.";
@@ -139,13 +135,11 @@ export const boxes: BoxData[] = [
     },
     badge: "bestseller",
     available: true,
-    imageBriefs: [
-      "Caja Surtida cerrada, lazo rojo",
-      "Caja Surtida abierta, vista cenital",
-      "Bombones de los tres sabores cortados, rellenos visibles",
-      "Detalle de textura de las tres coberturas",
-      "Caja Surtida lista para regalar, ambiente",
-    ],
+    images: {
+      card: "caja-surtida",
+      hover: "caja-surtida-abierta",
+      gallery: ["surtida-galeria-1", "surtida-galeria-2", "surtida-galeria-3", "surtida-galeria-4", "surtida-galeria-5"],
+    },
   },
   {
     slug: "manjar-de-olla",
@@ -163,13 +157,12 @@ export const boxes: BoxData[] = [
     // TODO: confirmar oferta y precios (10% → S/ 40.50 y S/ 76.50) con el cliente.
     discountPercent: 10,
     available: true,
-    imageBriefs: [
-      "Caja Manjar cerrada",
-      "Caja Manjar abierta, bombones negros, vista cenital",
-      "Bombón de manjar cortado, relleno visible",
-      "Detalle de textura del chocolate negro",
-      "Caja Manjar en ambiente o de regalo",
-    ],
+    images: {
+      card: "caja-manjar",
+      hover: "caja-manjar-abierta",
+      // Mientras falte su galería (n.º 20), la primera foto es la de la tarjeta
+      gallery: [["manjar-galeria-1", "caja-manjar"], "manjar-galeria-2", "manjar-galeria-3", "manjar-galeria-4", "manjar-galeria-5"],
+    },
   },
   {
     slug: "maracuya",
@@ -185,13 +178,11 @@ export const boxes: BoxData[] = [
     },
     badge: "new",
     available: true,
-    imageBriefs: [
-      "Caja Maracuyá cerrada",
-      "Caja Maracuyá abierta, bombones de leche, vista cenital",
-      "Bombón de maracuyá cortado, relleno amarillo",
-      "Detalle de textura del chocolate de leche",
-      "Caja Maracuyá en ambiente o de regalo",
-    ],
+    images: {
+      card: "caja-maracuya",
+      hover: "caja-maracuya-abierta",
+      gallery: [["maracuya-galeria-1", "caja-maracuya"], "maracuya-galeria-2", "maracuya-galeria-3", "maracuya-galeria-4", "maracuya-galeria-5"],
+    },
   },
   {
     slug: "coulis-de-fresa",
@@ -209,12 +200,16 @@ export const boxes: BoxData[] = [
     available: false,
     // TODO: confirmar fecha de reposición ("Vuelve el viernes").
     restockNote: "Vuelve el viernes",
-    imageBriefs: [
-      "Caja Coulis cerrada",
-      "Caja Coulis abierta, bombones blancos, vista cenital",
-      "Bombón de coulis de fresa cortado, relleno visible",
-      "Detalle de textura del chocolate blanco",
-      "Caja Coulis en ambiente o de regalo",
-    ],
+    images: {
+      card: "caja-coulis-fresa",
+      hover: "caja-coulis-fresa-abierta",
+      gallery: [
+        ["coulis-fresa-galeria-1", "caja-coulis-fresa"],
+        "coulis-fresa-galeria-2",
+        "coulis-fresa-galeria-3",
+        "coulis-fresa-galeria-4",
+        "coulis-fresa-galeria-5",
+      ],
+    },
   },
 ];
