@@ -125,17 +125,18 @@ Los componentes solo leen datos a través de `lib/catalog.ts`. Para migrar, se r
 
 Las claves van en `.env.local` (ver `.env.example`). Nunca se guardan claves reales en el repositorio.
 
-## Pendiente: subir a GitHub y publicar como ambiente de pruebas
+## GitHub y ambiente de pruebas
 
-> No hacer hasta que se apruebe.
+Repositorio **privado**: <https://github.com/benja2054-creator/marina-gold-web> (rama `main`). Para subir cambios nuevos:
 
-1. Crear un repositorio **privado** vacío en GitHub (sin README ni .gitignore).
-2. Conectar y subir:
-   ```bash
-   git remote add origin https://github.com/<usuario>/marina-gold-web.git
-   git branch -M main
-   git push -u origin main
-   ```
+```bash
+git push
+```
+
+Pendiente (no hacer hasta que se apruebe):
+
+1. ~~Crear el repositorio privado en GitHub.~~ Hecho.
+2. ~~Conectar y subir la rama `main`.~~ Hecho.
 3. Publicar el ambiente de pruebas (por ejemplo en Vercel): importar el repositorio, framework Next.js, sin variables de entorno por ahora.
 4. Proteger el ambiente de pruebas (contraseña o acceso restringido) y evitar que Google lo indexe hasta el lanzamiento.
 5. Cuando exista la tienda real, cargar las claves como variables de entorno en la plataforma de hosting, nunca en el código.
