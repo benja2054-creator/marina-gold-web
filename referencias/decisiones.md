@@ -21,4 +21,7 @@ Registro de contradicciones y huecos del diseño, y cómo se resolvieron. Aproba
 - Tailwind CSS 3.4, porque se pidió `tailwind.config` (Tailwind 4 ya no lo usa por defecto).
 - La navegación de escritorio (Sabores, Nuestra historia, Cómo pedir) enlaza a secciones de la home.
 - Los enlaces de WhatsApp, Rappi y PedidosYa quedan como `#` con TODO.
+- Hero en tablet (no definido en las notas): desde 768 px se usa la foto 16:9 con alto `min(56.25vw, 720px)`; en 4:5 ocuparía 940 px de alto.
+- "Hecho por Marina" pasa a dos columnas desde 768 px (las notas solo lo piden en escritorio) por la misma razón.
+- Tamaños medidos en la lámina donde las notas no dicen nada: subtítulo del newsletter a 14 px y línea de distritos a 13 px. El título del newsletter queda en 30 px (las notas piden normalizar los H2 a 30, aunque en la lámina mida 28).
 - Los tramos de la guía de estilo miden 2400 × 1800 px porque la lámina mide 2400 px de ancho.

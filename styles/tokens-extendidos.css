@@ -12,11 +12,14 @@
 
   /* ---------- Tipografía: tamaños citados en las notas §2, §4 y §5 ---------- */
   --mg-text-h2-lg: 34px;           /* "LAS CAJAS" */
+  --mg-text-h2-sm: 29px;           /* "TRES SABORES. / TRES CHOCOLATES." (notas: 29–30, lámina: 29) */
   --mg-text-hero-eyebrow: 13px;    /* "EDICIÓN PRIMAVERA" 700 / 0.08em */
   --mg-text-subtitle: 13.5px;      /* subtítulo de la ficha */
   --mg-text-button-sm: 12px;       /* "AVÍSAME", enlaces de texto */
   --mg-text-accordion: 14.5px;     /* texto de desplegables y pregunta FAQ */
   --mg-text-faq: 14px;             /* respuesta FAQ */
+  --mg-text-note: 14px;            /* subtítulo del newsletter (medido en la lámina) */
+  --mg-text-caption: 13px;         /* línea de distritos con pin (medida en la lámina: 3 líneas a 375) */
   --mg-text-footer-link: 13px;     /* enlaces legales del footer, ítems del menú */
   --mg-text-copyright: 11.5px;     /* línea © del footer, destacados de la ficha */
   --mg-text-sticky-name: 15px;     /* nombre en la barra fija */
@@ -63,6 +66,7 @@
   --mg-thumb-w: 44px;            /* miniatura de la barra fija, 4:5 */
   --mg-thumb-h: 55px;
   --mg-drawer-w: min(88vw, 360px);
+  --mg-hero-wide-h: min(56.25vw, 720px); /* hero 16:9 desde tablet, máximo 720 de alto (notas §6) */
 
   /* Íconos */
   --mg-icon-xs: 14px;     /* check del tamaño elegido */
@@ -111,6 +115,7 @@
     --mg-text-h1: 48px;
     --mg-text-h2: 44px;
     --mg-text-h2-lg: 44px;
+    --mg-text-h2-sm: 44px;
     --mg-text-h3: 32px;
     --mg-text-body: 16px;
     --mg-text-footer-logo: clamp(84px, 10.5vw, 150px); /* "MARINA GOLD." en una línea a todo el ancho */

@@ -18,6 +18,8 @@ export const links = {
   rappi: "#",
   pedidosYa: "#",
   privacy: "#",
+  // Página "Nuestra historia" aún no existe.
+  story: "#",
 };
 
 export const announcement = "Delivery en Lima · Pedidos con 24 h de anticipación";

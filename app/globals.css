@@ -24,7 +24,7 @@
 
   /* Foco visible (notas §4) */
   :focus-visible {
-    outline: 2px solid var(--mg-focus);
+    outline: var(--mg-border-w-selected) solid var(--mg-focus);
     outline-offset: var(--mg-space-0-5);
   }
 
@@ -79,6 +79,23 @@
     font-style: italic;
     font-weight: 400;
     text-transform: none;
+  }
+}
+
+/* Aparición de secciones (components/ui/Reveal.tsx) */
+.mg-reveal {
+  transition:
+    opacity var(--mg-dur-reveal) var(--mg-ease),
+    transform var(--mg-dur-reveal) var(--mg-ease);
+}
+.mg-reveal[data-reveal="hidden"] {
+  opacity: 0;
+  transform: translateY(var(--mg-reveal-shift));
+  transition: none; /* se oculta al instante; solo se anima la aparición */
+}
+@media (prefers-reduced-motion: reduce) {
+  .mg-reveal[data-reveal="hidden"] {
+    transform: none;
   }
 }
 

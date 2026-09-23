@@ -3,7 +3,8 @@ import { DM_Sans, Playfair_Display } from "next/font/google";
 import { AnnouncementBar } from "@/components/layout/AnnouncementBar";
 import { Footer } from "@/components/layout/Footer";
 import { Header } from "@/components/layout/Header";
-import { announcement, brand, desktopNav, drawerMenu, footer, links, socials } from "@/data/content";
+import { Newsletter } from "@/components/layout/Newsletter";
+import { announcement, brand, desktopNav, drawerMenu, footer, links, newsletter, socials } from "@/data/content";
 import { getProducts } from "@/lib/catalog";
 import "./globals.css";
 
@@ -80,6 +81,7 @@ export default async function RootLayout({ children }: { children: React.ReactNo
           cartCount={CART_COUNT_MOCK}
         />
         <main id="contenido">{children}</main>
+        <Newsletter {...newsletter} privacyHref={links.privacy} />
         <Footer
           legal={footer.legal}
           legalLabel={footer.legalLabel}
