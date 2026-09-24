@@ -1,8 +1,9 @@
 import type { Metadata } from "next";
 import { notFound } from "next/navigation";
 import { BoxesSection } from "@/components/product/BoxesSection";
-import { collectionPage } from "@/data/content";
+import { brand, collectionPage, ui } from "@/data/content";
 import { getCollection } from "@/lib/catalog";
+import { shareMetadata } from "@/lib/seo";
 
 type Props = { params: Promise<{ handle: string }> };
 
@@ -16,7 +17,15 @@ export async function generateStaticParams() {
 export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const collection = await getCollection((await params).handle);
   if (!collection) return {};
-  return { title: "Todas las cajas", description: collectionPage.description };
+  return {
+    title: ui.collectionTitle,
+    description: collectionPage.description,
+    ...shareMetadata({
+      title: `${ui.collectionTitle} · ${brand.name}`,
+      description: collectionPage.description,
+      path: `/collections/${collection.handle}`,
+    }),
+  };
 }
 
 /*

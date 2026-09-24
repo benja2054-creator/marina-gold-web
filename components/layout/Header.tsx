@@ -6,6 +6,7 @@ import { BagIcon, MenuIcon, SearchIcon } from "@/components/icons";
 import { Logo } from "@/components/layout/Logo";
 import { MobileMenu, type MenuBox } from "@/components/layout/MobileMenu";
 import type { socialIcons } from "@/components/icons";
+import { ui } from "@/data/content";
 
 interface HeaderProps {
   nav: { label: string; href: string }[];
@@ -46,7 +47,7 @@ export function Header({ nav, menu, socials, cartCount }: HeaderProps) {
             ref={menuButtonRef}
             type="button"
             className={iconButton}
-            aria-label="Abrir menú"
+            aria-label={ui.openMenu}
             aria-expanded={open}
             aria-controls="menu-lateral"
             onClick={() => setOpen(true)}
@@ -57,7 +58,7 @@ export function Header({ nav, menu, socials, cartCount }: HeaderProps) {
 
         <Logo />
 
-        <nav aria-label="Principal" className="hidden lg:block">
+        <nav aria-label={ui.mainNav} className="hidden lg:block">
           <ul className="flex gap-8">
             {nav.map((item) => (
               <li key={item.href}>
@@ -73,10 +74,10 @@ export function Header({ nav, menu, socials, cartCount }: HeaderProps) {
         </nav>
 
         <div className="-mr-2.75 flex justify-end">
-          <button type="button" className={iconButton} aria-label="Buscar">
+          <button type="button" className={iconButton} aria-label={ui.search}>
             <SearchIcon className="h-icon-header w-icon-header" />
           </button>
-          <button type="button" className={iconButton} aria-label={`Carrito, ${cartCount} productos`}>
+          <button type="button" className={iconButton} aria-label={ui.cart(cartCount)}>
             <BagIcon className="h-icon-header w-icon-header" />
             {cartCount > 0 && (
               <span

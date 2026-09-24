@@ -6,6 +6,7 @@ import { productCard as t } from "@/data/content";
 import { Badge } from "@/components/ui/Badge";
 import { Photo } from "@/components/ui/Photo";
 import { NotifyMe } from "@/components/product/NotifyMe";
+import { HoverLayer } from "@/components/product/HoverLayer";
 
 // Ancho real de la tarjeta: 2 columnas en móvil (166 a 375 px), 344 en tablet, 282 en escritorio (1440)
 const SIZES = "(min-width: 1024px) 282px, (min-width: 768px) 344px, calc(50vw - 22px)";
@@ -15,7 +16,8 @@ const SIZES = "(min-width: 1024px) 282px, (min-width: 768px) 344px, calc(50vw - 
  * y debajo, a 10 px: nombre, "6 y 12 bombones" y "Desde S/ 45.00", a 4 px entre sí.
  * Toda la tarjeta enlaza a la ficha, salvo la agotada (decisiones.md punto B).
  * Hover [PROPUESTO]: fundido de 250 ms a la segunda foto (caja abierta, n.º 19).
- * - Solo con puntero fino (hoverOnlyWhenSupported): en pantallas táctiles no se activa ni queda trabada.
+ * - Solo con puntero fino: en pantallas táctiles la capa no se monta (HoverLayer), así que ni se
+ *   descarga la segunda foto ni el hover queda trabado.
  * - Con prefers-reduced-motion el cambio es instantáneo, sin fundido.
  * - En la agotada también hay hover, y el velo blanco del 55% va encima de ambas fotos.
  */
@@ -27,12 +29,9 @@ export function ProductCard({ product, titleAs: Title = "h3" }: { product: Produ
   const photo = (
     <Photo image={product.cardImage} ratio="box" bg={bg} sizes={SIZES}>
       {/* Capa del hover: el contenedor se posiciona; Photo ocupa todo su alto. */}
-      <div
-        aria-hidden="true"
-        className="absolute inset-0 opacity-0 transition-opacity duration-base ease-mg group-hover:opacity-100 motion-reduce:transition-none"
-      >
+      <HoverLayer>
         <Photo image={product.hoverImage} ratio="free" bg={bg} sizes={SIZES} decorative className="h-full" />
-      </div>
+      </HoverLayer>
       {/* Después de la capa del hover: el velo cubre también la foto abierta */}
       {soldOut && <div aria-hidden="true" className="absolute inset-0 bg-mg-soldout-veil" />}
       {product.badge && (

@@ -69,6 +69,14 @@
   --mg-drawer-w: min(88vw, 360px);
   --mg-hero-wide-h: min(56.25vw, 720px); /* hero 16:9 desde tablet, máximo 720 de alto (notas §6) */
 
+  /* "NUEVA COLECCIÓN" en una línea: 33 px desde 375 (el título mide ~9.7 veces el tamaño de letra
+     y el ancho útil es 100vw − 2 × 16); por debajo se achica para no salirse. 72 px desde 1024. */
+  --mg-text-hero: min(33px, calc((100vw - 32px) / 9.7));
+
+  /* Logo gigante del footer: 84 px a 375 ("MARINA" mide ~4.16 veces el tamaño de letra y ya invade
+     un poco el margen); por debajo se achica para no salirse de la pantalla. */
+  --mg-text-footer-logo: min(84px, calc((100vw - 24px) / 4.16));
+
   /* Íconos */
   --mg-icon-xs: 14px;     /* check del tamaño elegido */
   --mg-icon-bell: 15px;   /* campana de "AVÍSAME" */

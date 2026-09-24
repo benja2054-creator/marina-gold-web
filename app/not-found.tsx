@@ -2,9 +2,9 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import { ArrowRightIcon } from "@/components/icons";
 import { primaryButton, secondaryButton } from "@/components/ui/buttons";
-import { notFound as t } from "@/data/content";
+import { notFound as t, ui } from "@/data/content";
 
-export const metadata: Metadata = { title: "Página no encontrada" };
+export const metadata: Metadata = { title: ui.notFoundTitle };
 
 /* 404 con el mismo sistema: antetítulo rojo, título H2 con remate en itálica y botones de la sección 4. */
 export default function NotFound() {

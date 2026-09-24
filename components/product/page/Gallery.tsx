@@ -25,7 +25,7 @@ export function Gallery({ images, title }: { images: ImageAsset[]; title: string
 
   return (
     <div className="lg:grid lg:grid-cols-[auto_1fr] lg:gap-3">
-      <ul aria-label={`${t.galleryLabel} ${title}`} className="hidden flex-col gap-2 lg:flex">
+      <ul aria-label={`${t.thumbsLabel} ${title}`} className="hidden flex-col gap-2 lg:flex">
         {images.map((image, i) => (
           <li key={image.src}>
             <button

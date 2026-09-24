@@ -12,6 +12,7 @@ import { StickyBar } from "@/components/product/page/StickyBar";
 import { brand, productPage } from "@/data/content";
 import { getProductBySlug, getProductSlugs } from "@/lib/catalog";
 import { image } from "@/lib/images";
+import { absoluteAsset, absoluteUrl, shareMetadata } from "@/lib/seo";
 
 type Props = { params: Promise<{ slug: string }> };
 
@@ -22,7 +23,12 @@ export async function generateStaticParams() {
 export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const product = await getProductBySlug((await params).slug);
   if (!product) return {};
-  return { title: product.title, description: `${product.subtitle}. ${product.description[0]}` };
+  const description = `${product.subtitle}. ${product.description[0]}`;
+  return {
+    title: product.title,
+    description,
+    ...shareMetadata({ title: `${product.title} · ${brand.name}`, description, path: `/products/${product.slug}` }),
+  };
 }
 
 /*
@@ -47,10 +53,13 @@ export default async function ProductPage({ params }: Props) {
     "@type": "Product",
     name: product.title,
     description: product.subtitle,
+    image: product.images.map((i) => absoluteAsset(i.src)),
+    url: absoluteUrl(`/products/${product.slug}`),
     brand: { "@type": "Brand", name: brand.name },
     offers: product.variants.map((v) => ({
       "@type": "Offer",
       name: v.title,
+      url: absoluteUrl(`/products/${product.slug}`),
       price: (v.price / 100).toFixed(2),
       priceCurrency: "PEN",
       availability: v.available ? "https://schema.org/InStock" : "https://schema.org/OutOfStock",

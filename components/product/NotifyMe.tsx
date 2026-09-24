@@ -2,7 +2,7 @@
 
 import { useId, useState } from "react";
 import { BellIcon } from "@/components/icons";
-import { productCard as t } from "@/data/content";
+import { productCard as t, ui } from "@/data/content";
 
 /*
  * Botón "AVÍSAME" de las cajas agotadas (notas §4): alto 44, borde negro, campana de 15.
@@ -26,7 +26,7 @@ export function NotifyMe({ productName }: { productName: string }) {
       <button
         type="button"
         onClick={() => setState("open")}
-        aria-label={`${t.notifyMe} cuando vuelva ${productName}`}
+        aria-label={ui.notifyMeFor(productName)}
         className="flex h-touch w-full items-center justify-center gap-2 border border-mg-border bg-mg-white text-mg-button-sm font-bold uppercase tracking-button transition-colors duration-fast hover:bg-mg-black hover:text-mg-on-dark"
       >
         <BellIcon className="h-icon-bell w-icon-bell" />
@@ -41,7 +41,13 @@ export function NotifyMe({ productName }: { productName: string }) {
       onSubmit={(event) => {
         event.preventDefault();
         const input = event.currentTarget.elements.namedItem("email") as HTMLInputElement;
-        setState(input.validity.valid && input.value ? "done" : "error");
+        if (input.validity.valid && input.value) {
+          setState("done");
+        } else {
+          // Con error, el foco vuelve al campo y el mensaje se anuncia (role="alert")
+          setState("error");
+          input.focus();
+        }
       }}
       className="flex flex-col gap-1"
     >
@@ -63,7 +69,7 @@ export function NotifyMe({ productName }: { productName: string }) {
         }`}
       />
       {state === "error" && (
-        <p id={errorId} className="text-mg-small text-mg-red">
+        <p id={errorId} role="alert" className="text-mg-small text-mg-red">
           {t.notifyError}
         </p>
       )}

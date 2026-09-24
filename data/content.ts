@@ -13,6 +13,23 @@ export const brand = {
   city: "Lima, Perú",
 };
 
+/** Textos de interfaz y accesibilidad (etiquetas de botones, menús y metadatos de página) */
+export const ui = {
+  skipToContent: "Saltar al contenido",
+  logoHome: `${brand.name}, ir al inicio`,
+  openMenu: "Abrir menú",
+  closeMenu: "Cerrar menú",
+  menu: "Menú",
+  mainNav: "Principal",
+  drawerNav: "Menú principal",
+  search: "Buscar",
+  cart: (count: number) => `Carrito, ${count} ${count === 1 ? "producto" : "productos"}`,
+  notifyMeFor: (productName: string) => `Avísame cuando vuelva ${productName}`,
+  quantity: "cantidad:",
+  collectionTitle: "Todas las cajas",
+  notFoundTitle: "Página no encontrada",
+};
+
 // TODO: reemplazar los "#" por los enlaces reales.
 export const links = {
   whatsapp: "#",
@@ -92,7 +109,7 @@ export const footer = {
     { label: "Envíos y cambios", href: "#" },
     { label: "Términos y condiciones", href: "#" },
   ],
-  copyright: "© 2026 Marina Gold · Lima, Perú. Hecho a mano, comido con ganas.",
+  copyright: `© 2026 ${brand.name} · ${brand.city}. Hecho a mano, comido con ganas.`,
   paymentsLabel: "Medios de pago",
   socialLabel: "Redes sociales",
   legalLabel: "Información legal",
@@ -155,6 +172,7 @@ export const newsletter = {
 
 export const productPage = {
   galleryLabel: "Fotos de",
+  thumbsLabel: "Miniaturas de las fotos de",
   photoOf: "de",
   quantityLabel: "Cantidad",
   decrease: "Quitar uno",

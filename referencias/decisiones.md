@@ -64,3 +64,19 @@ Registro de contradicciones y huecos del diseño, y cómo se resolvieron. Aproba
 - `og:image` y `twitter:image` (summary_large_image) en todas las páginas, con URL absoluta desde `NEXT_PUBLIC_SITE_URL`, que el workflow define como el origen de GitHub Pages.
 - Sin placeholders: se eliminaron del código el placeholder de foto, el del hero, la lógica de "primera foto disponible" y los colores temporales `--mg-placeholder` de `styles/tokens.css`. Si falta una imagen, la compilación falla indicando cuál.
 - Nuevas dependencias de desarrollo para el script: `opentype.js` y `@fontsource/playfair-display` (la fuente para dibujar el logo). No se sirven en la web.
+
+## Correcciones de la revisión profunda (2026-09-24)
+
+- Cada página tiene su propia vista previa al compartir: título, descripción y `og:url` de la página (la imagen es siempre `og-compartir.jpg`). Se centraliza en `lib/seo.ts`, que también arma las URL absolutas. Si no está `NEXT_PUBLIC_SITE_URL` se usa la URL de Vercel y, en último caso, localhost con un aviso al compilar.
+- Los datos estructurados de las fichas (JSON-LD `Product`) incluyen las fotos de la galería y la URL de la ficha.
+- Barra de anuncio: el texto ya no se corta con "…". Por debajo de 375 px el tracking baja de 0.14em a 0.10em para que quepa en una línea; si no alcanza, pasa a dos líneas. [PROPUESTO]
+- Título del hero: 33 px desde 375 px; por debajo se achica con el ancho para no salirse de la pantalla (antes a 320–350 px se salía). 72 px desde 1024, sin cambios. No toca el hero de escritorio aprobado.
+- Logo gigante del footer: 84 px desde 375 px; por debajo se achica con el ancho (a 320–370 px "MARINA" se salía de la pantalla y la página se desplazaba de lado).
+- Hero: un solo texto alternativo que vale para la foto de celular y la de escritorio.
+- Barra fija de la ficha: AÑADIR muestra el aviso de maqueta encima de la barra durante 3,5 s. [PROPUESTO]
+- Errores del newsletter y de AVÍSAME: se anuncian a lectores de pantalla (`role="alert"`) y el foco vuelve al campo a corregir.
+- Opción de tamaño: el hover engrosa el borde con una sombra interior de 1 px en vez de `border-2`, así el contenido no se mueve.
+- La foto del hover de las tarjetas solo se monta en dispositivos con mouse: en celulares ya no se descarga.
+- La miniatura de la barra fija es decorativa (el nombre de la caja va al lado).
+- Todos los textos de la interfaz (rótulos de accesibilidad, menú, carrito, títulos) están en `data/content.ts` (`ui`).
+- `npm run imagenes` ya no borra versiones optimizadas cuando falta su original: avisa y las conserva. Para borrarlas: `npm run imagenes -- --limpiar`.

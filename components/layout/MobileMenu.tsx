@@ -6,6 +6,7 @@ import type { FlavorColor } from "@/data/catalog";
 import { CloseIcon, WhatsAppIcon, socialIcons } from "@/components/icons";
 import { FlavorDot } from "@/components/ui/FlavorDot";
 import { Logo } from "@/components/layout/Logo";
+import { ui } from "@/data/content";
 
 export interface MenuBox {
   href: string;
@@ -91,7 +92,7 @@ export function MobileMenu({ id, open, onClose, boxes, groupLabel, links, whatsa
         ref={panelRef}
         role="dialog"
         aria-modal="true"
-        aria-label="Menú"
+        aria-label={ui.menu}
         className={`absolute inset-y-0 left-0 flex w-drawer flex-col overflow-y-auto bg-mg-white shadow-drawer transition-transform duration-slow ease-mg motion-reduce:transition-none ${
           open ? "translate-x-0" : "-translate-x-full"
         }`}
@@ -102,14 +103,14 @@ export function MobileMenu({ id, open, onClose, boxes, groupLabel, links, whatsa
             ref={closeRef}
             type="button"
             onClick={() => onClose(true)}
-            aria-label="Cerrar menú"
+            aria-label={ui.closeMenu}
             className="-mr-2.75 flex h-touch w-touch items-center justify-center"
           >
             <CloseIcon className="h-icon-lg w-icon-lg" />
           </button>
         </div>
 
-        <nav aria-label="Menú principal" className="flex flex-1 flex-col px-gutter pb-8 pt-6">
+        <nav aria-label={ui.drawerNav} className="flex flex-1 flex-col px-gutter pb-8 pt-6">
           <p className="mg-label text-mg-ink-3">{groupLabel}</p>
           <ul>
             {boxes.map((box) => (

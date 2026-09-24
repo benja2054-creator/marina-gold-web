@@ -230,3 +230,9 @@ export const IMAGES = {
 } satisfies Record<string, ImageSpec>;
 
 export type ImageKey = keyof typeof IMAGES;
+
+/*
+ * El hero es un solo <img> con dos fotos (<picture>): su texto alternativo tiene que valer para
+ * la de celular (n.º 1) y la de escritorio (n.º 21), así que describe lo que tienen en común.
+ */
+export const HERO_ALT = "Marina, con delantal negro, junto a la caja Surtida abierta sobre un mesón de mármol negro";

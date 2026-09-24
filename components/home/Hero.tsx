@@ -1,4 +1,5 @@
 import { getImageProps } from "next/image";
+import { HERO_ALT } from "@/data/imagenes";
 import type { ImageAsset } from "@/lib/images";
 import { heroButton } from "@/components/ui/buttons";
 
@@ -18,9 +19,10 @@ interface HeroProps {
  * Velo negro al 30% sobre la foto para asegurar el contraste del texto blanco.
  * <picture> con dirección de arte: cada dispositivo descarga solo su foto (sin preload, que
  * descargaría también la de celular en escritorio; fetchPriority alto porque es el LCP).
+ * Un solo texto alternativo para las dos fotos (HERO_ALT).
  */
 export function Hero({ eyebrow, title, cta, ctaHref, mobile, desktop }: HeroProps) {
-  const common = { alt: mobile.alt, sizes: "100vw", fetchPriority: "high" as const, loading: "eager" as const };
+  const common = { alt: HERO_ALT, sizes: "100vw", fetchPriority: "high" as const, loading: "eager" as const };
   // Tamaños del manifiesto data/imagenes.ts (1600 × 2000 y 2560 × 1440)
   const size = (i: ImageAsset) => ({ width: i.width, height: i.height, src: i.src });
   const mobileImg = getImageProps({ ...common, ...size(mobile) }).props;
@@ -35,7 +37,7 @@ export function Hero({ eyebrow, title, cta, ctaHref, mobile, desktop }: HeroProp
       <picture>
         {/* Sin optimización (GitHub Pages) getImageProps no genera srcSet: se usa el src directo */}
         <source media="(min-width: 768px)" srcSet={desktopImg.srcSet ?? desktopImg.src} sizes="100vw" />
-        <img {...mobileImg} alt={mobile.alt} className={imgClass} />
+        <img {...mobileImg} alt={HERO_ALT} className={imgClass} />
       </picture>
 
       <div aria-hidden="true" className="absolute inset-0 bg-mg-hero-veil" />

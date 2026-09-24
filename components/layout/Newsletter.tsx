@@ -53,9 +53,14 @@ export function Newsletter(t: NewsletterProps) {
               const form = event.currentTarget;
               const email = form.elements.namedItem("email") as HTMLInputElement;
               const consent = form.elements.namedItem("consent") as HTMLInputElement;
-              if (!email.value || !email.validity.valid) setStatus("email-error");
-              else if (!consent.checked) setStatus("consent-error");
-              else setStatus("done");
+              // Con error, el foco vuelve al campo a corregir y el mensaje se anuncia (role="alert")
+              if (!email.value || !email.validity.valid) {
+                setStatus("email-error");
+                email.focus();
+              } else if (!consent.checked) {
+                setStatus("consent-error");
+                consent.focus();
+              } else setStatus("done");
             }}
           >
             <label htmlFor={emailId} className="mg-label block">
@@ -82,7 +87,7 @@ export function Newsletter(t: NewsletterProps) {
               </button>
             </div>
             {status === "email-error" && (
-              <p id={messageId} className="mt-2 text-mg-small text-mg-red">
+              <p id={messageId} role="alert" className="mt-2 text-mg-small text-mg-red">
                 {t.error}
               </p>
             )}
@@ -106,7 +111,7 @@ export function Newsletter(t: NewsletterProps) {
               </label>
             </div>
             {status === "consent-error" && (
-              <p id={`${consentId}-error`} className="text-mg-small text-mg-red">
+              <p id={`${consentId}-error`} role="alert" className="text-mg-small text-mg-red">
                 {t.consentError}
               </p>
             )}

@@ -15,8 +15,12 @@
  *   con los trazos de Playfair Display 800 (la serif del sitio) en #111111 (--mg-black), centrado en
  *   la mitad izquierda, que la foto deja vacía.
  * - Si falta algún original lo informa: el sitio no compila sin todas sus imágenes.
- * - Borra las versiones optimizadas cuyo original ya no está, para no servir fotos viejas.
+ * - Si falta el original de una versión optimizada que ya existe, la deja y lo avisa (una carpeta de
+ *   entrega sin descomprimir no debe borrar fotos buenas). Con "npm run imagenes -- --limpiar" la borra,
+ *   para no servir fotos viejas de un original retirado a propósito.
  */
+
+const LIMPIAR = process.argv.includes("--limpiar");
 import fs from "node:fs";
 import path from "node:path";
 import opentype from "opentype.js";
@@ -106,8 +110,12 @@ for (const spec of Object.values(IMAGES)) {
   if (!origen) {
     faltan.push(`n.º ${spec.n} · ${spec.original}`);
     if (fs.existsSync(salida)) {
-      fs.rmSync(salida);
-      avisos.push(`${spec.output}: se borró porque su original ya no existe`);
+      if (LIMPIAR) {
+        fs.rmSync(salida);
+        avisos.push(`${spec.output}: se borró porque su original ya no existe (--limpiar)`);
+      } else {
+        avisos.push(`${spec.output}: su original no está; se conserva la versión anterior (bórrala con --limpiar)`);
+      }
     }
     continue;
   }

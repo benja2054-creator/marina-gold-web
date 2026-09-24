@@ -64,7 +64,7 @@ export function PurchasePanel() {
                     ? "mg-striped cursor-not-allowed border border-mg-ink-3 text-mg-ink-3"
                     : selected
                       ? "cursor-pointer border-2 border-mg-black bg-mg-black text-mg-on-dark"
-                      : "cursor-pointer border border-mg-border bg-mg-white hover:border-2"
+                      : "cursor-pointer border border-mg-border bg-mg-white hover:shadow-inner-border"
                 }`}
               >
                 <input

@@ -192,6 +192,8 @@ const config: Config = {
       none: "none",
       sticky: v("shadow-sticky"),
       drawer: v("shadow-drawer"),
+      // Segundo píxel de borde por dentro: engrosa el borde al pasar el mouse sin mover el contenido
+      "inner-border": "inset 0 0 0 1px var(--mg-border)",
     },
     aspectRatio: {
       auto: "auto",

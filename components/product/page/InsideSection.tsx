@@ -1,7 +1,7 @@
 "use client";
 
 import { flavorBg, flavorDeepBg } from "@/lib/flavor-styles";
-import { productPage } from "@/data/content";
+import { productPage, ui } from "@/data/content";
 import { Photo } from "@/components/ui/Photo";
 import { useProduct } from "@/components/product/page/ProductContext";
 
@@ -46,7 +46,7 @@ export function InsideSection() {
               </div>
               <p className="mg-accent shrink-0 text-mg-accent leading-none">
                 <span aria-hidden="true">×</span>
-                <span className="sr-only">cantidad: </span>
+                <span className="sr-only">{ui.quantity} </span>
                 {quantity}
               </p>
             </li>

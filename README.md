@@ -90,6 +90,7 @@ optimizadas que genera un script a partir de esos originales.
    - la exporta en WebP (sRGB, sin metadatos), empezando en calidad 80 y bajando como máximo a 72 para quedar bajo 200 KB (350 KB el hero);
    - en la vista previa al compartir, compone el logo MARINA GOLD (Playfair Display 800, #111111) en la mitad izquierda y la guarda en JPG;
    - muestra una tabla con el peso final, la calidad y el recorte, y avisa si falta algún original.
+   Si falta el original de una foto ya generada, conserva la versión anterior y lo avisa; `npm run imagenes -- --limpiar` la borra.
 3. Revisar en `npm run dev`, hacer commit y `git push` (GitHub Pages se actualiza solo).
 
 Están aprobadas las 22 imágenes del documento (n.º 1 a 22), así que el sitio ya no tiene placeholders. Si alguna versión
