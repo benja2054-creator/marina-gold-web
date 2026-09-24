@@ -115,7 +115,7 @@ public/images/
 
 | N.º | Original | Dónde va |
 | --- | --- | --- |
-| 1 · 21 | home-hero.jpg · home-hero-desktop.jpg | Hero de la home (4:5 en móvil, 16:9 desde 768 px) |
+| 1 · 21 | home-hero.jpg · home-hero-desktop.jpg | Hero de la home (4:5 en móvil, 16:9 desde 768 px). La n.º 21 está por rehacer (ver abajo) |
 | 2 · 3 · 4 | sabor-manjar/maracuya/fresa.jpg | Franjas de sabores de la home y "¿Qué hay dentro?" de la ficha |
 | 5 a 8 | caja-surtida/manjar/maracuya/coulis-fresa.jpg | Tarjetas de la grilla (home y colección) y miniatura de la barra fija |
 | 9 | marina.jpg | "Hecho por Marina" |
@@ -124,6 +124,18 @@ public/images/
 | 19 | caja-*-abierta.jpg | Segunda foto al pasar el mouse por la tarjeta (solo con mouse; en la agotada, bajo el velo) |
 | 20 | {manjar, maracuya, coulis-fresa}-galeria-1..5.jpg | Galerías de las otras fichas — pendientes. Mientras falte la 1, se usa la foto de la tarjeta |
 | 22 | og-compartir.jpg | Vista previa al compartir — pendiente, aún no conectada |
+
+**Encargo: nueva foto del hero de escritorio (n.º 21, `home-hero-desktop.jpg`)**
+
+La versión actual tiene la caja en el centro, detrás del título. La nueva debe dejar libre la zona donde van
+"EDICIÓN PRIMAVERA", "NUEVA COLECCIÓN" y el botón COMPRAR (texto blanco, centrado):
+
+- Formato 16:9, mínimo 2560 × 1440 (mejor 4K), sRGB, sin texto en la imagen.
+- **Zona libre, oscura y lisa:** del 15 % al 85 % del ancho y del 30 % al 70 % del alto. Ahí no puede haber
+  caja, bombones, manos ni cara. Es la zona que ocupa el texto a 1024 px, el ancho más exigente.
+- La caja y Marina van en los bordes: la caja en el 15 % izquierdo o sobre el mesón, en el tercio inferior;
+  Marina en el 15 % derecho o con la cara por encima del 30 % del alto.
+- Su cara debe quedar entera también a 1920 px, donde se recorta cerca de un 16 % arriba y abajo. Conviene dejar aire arriba de su cabeza.
 
 ## Textos pendientes de confirmar (TODO)
 
