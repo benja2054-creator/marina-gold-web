@@ -4,14 +4,14 @@
  * Lo leen el sitio (lib/images.ts) y el script scripts/optimizar-imagenes.mjs.
  *
  * - n:        número en el documento "Marina Gold · Imágenes requeridas para la tienda" (v1).
- * - original: nombre definitivo del archivo aprobado, en
- *             referencias/fotos-originales/marina-gold-imagenes-aprobadas/ (no se modifica ni se sirve).
+ * - original: nombre definitivo del archivo aprobado. El script lo busca en cualquiera de las
+ *             entregas de referencias/fotos-originales/ (no se modifica ni se sirve).
  * - output:   versión optimizada que genera el script, dentro de public/images/.
  * - width/height: tamaño "Generar a" del documento.
  * - maxKB:    peso objetivo (200 KB; 350 KB el hero).
  * - alt:      texto alternativo en español.
  *
- * Para agregar una foto nueva: copiarla con su nombre en la carpeta de originales y correr
+ * Para agregar una foto nueva: descomprimir la entrega en referencias/fotos-originales/ y correr
  * `npm run imagenes`. Si el original aún no existe, el sitio muestra un placeholder con su nombre.
  *
  * Solo sintaxis que Node puede ejecutar sin compilar (el script lo importa directamente).
@@ -56,20 +56,20 @@ export const IMAGES = {
   "home-hero": {
     n: 1,
     original: "home-hero.jpg",
-    output: "hero/home-hero.webp",
+    output: "home/home-hero.webp",
     width: 1600,
     height: 2000,
     maxKB: 350,
-    alt: "Caja Surtida de Marina Gold abierta sobre mármol negro",
+    alt: "Marina, con delantal negro, apoyada en un mesón de mármol negro junto a la caja Surtida abierta",
   },
   "home-hero-desktop": {
     n: 21,
     original: "home-hero-desktop.jpg",
-    output: "hero/home-hero-desktop.webp",
+    output: "home/home-hero-desktop.webp",
     width: 2560,
     height: 1440,
     maxKB: 350,
-    alt: "Caja Surtida de Marina Gold abierta sobre mármol negro",
+    alt: "Marina probando un bombón junto a la caja Surtida abierta, sobre un mesón de mármol negro",
   },
   "sabor-manjar": {
     n: 2,
@@ -123,18 +123,18 @@ export const IMAGES = {
   marina: {
     n: 9,
     original: "marina.jpg",
-    output: "marina/marina.webp",
+    output: "home/marina.webp",
     width: 1200,
     height: 1500,
     maxKB: 200,
-    alt: "Marina en su cocina, con delantal negro y una bandeja de bombones",
+    alt: "Marina, con delantal negro, prueba un bombón mientras sostiene la bandeja de la caja Surtida con sus 12 bombones",
   },
 
   /* ---------- Fotos de hover de las tarjetas (n.º 19) ---------- */
-  "caja-surtida-abierta": { n: 19, original: "caja-surtida-abierta.jpg", output: "cajas/caja-surtida-abierta.webp", ...TARJETA, alt: "Caja Surtida abierta" },
-  "caja-manjar-abierta": { n: 19, original: "caja-manjar-abierta.jpg", output: "cajas/caja-manjar-abierta.webp", ...TARJETA, alt: "Caja Manjar de olla abierta" },
-  "caja-maracuya-abierta": { n: 19, original: "caja-maracuya-abierta.jpg", output: "cajas/caja-maracuya-abierta.webp", ...TARJETA, alt: "Caja Maracuyá abierta" },
-  "caja-coulis-fresa-abierta": { n: 19, original: "caja-coulis-fresa-abierta.jpg", output: "cajas/caja-coulis-fresa-abierta.webp", ...TARJETA, alt: "Caja Coulis de fresa abierta" },
+  "caja-surtida-abierta": { n: 19, original: "caja-surtida-abierta.jpg", output: "cajas/caja-surtida-abierta.webp", ...TARJETA, alt: "Caja Surtida abierta, con la bandeja de 12 bombones junto a su faja" },
+  "caja-manjar-abierta": { n: 19, original: "caja-manjar-abierta.jpg", output: "cajas/caja-manjar-abierta.webp", ...TARJETA, alt: "Caja Manjar de olla abierta, con seis bombones de chocolate negro junto a su faja" },
+  "caja-maracuya-abierta": { n: 19, original: "caja-maracuya-abierta.jpg", output: "cajas/caja-maracuya-abierta.webp", ...TARJETA, alt: "Caja Maracuyá abierta, con seis bombones de chocolate de leche junto a su faja" },
+  "caja-coulis-fresa-abierta": { n: 19, original: "caja-coulis-fresa-abierta.jpg", output: "cajas/caja-coulis-fresa-abierta.webp", ...TARJETA, alt: "Caja Coulis de fresa abierta, con seis bombones de chocolate blanco junto a su faja" },
 
   /* ---------- Galería de la ficha Surtida (n.º 10 a 14) ---------- */
   "surtida-galeria-1": {
@@ -163,7 +163,7 @@ export const IMAGES = {
     original: "surtida-galeria-4.jpg",
     output: "galeria-surtida/surtida-galeria-4.webp",
     ...GALERIA,
-    alt: "Mano sosteniendo un bombón para mostrar su tamaño",
+    alt: "Mano de Marina sosteniendo entre los dedos un bombón de manjar de olla, para mostrar su tamaño",
   },
   "surtida-galeria-5": {
     n: 14,

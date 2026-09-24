@@ -72,19 +72,20 @@ Los textos marcados con `TODO` en el código son de ejemplo y aún no están con
 
 ## Imágenes
 
-Las fotos aprobadas llegan en JPG de alta resolución y **no se tocan**: se guardan en
-`referencias/fotos-originales/marina-gold-imagenes-aprobadas/` (junto con `LEEME-imagenes.md` y la carpeta
-`packaging/`, que es solo referencia del diseño de la caja y no va en la web). El sitio usa versiones
+Las fotos aprobadas llegan en JPG de alta resolución, por entregas, y **no se tocan**: cada zip se
+descomprime en su propia carpeta dentro de `referencias/fotos-originales/`
+(`marina-gold-imagenes-aprobadas/`, `marina-gold-imagenes-aprobadas-parte-2/`, …), cada una con su
+`LEEME-imagenes.md`. La carpeta `packaging/` es solo referencia del diseño de la caja y no va en la web. El sitio usa versiones
 optimizadas que genera un script a partir de esos originales.
 
 **Flujo para agregar o cambiar una foto**
 
-1. Copiar el original, con su nombre definitivo (el del documento de imágenes), en la carpeta de originales.
+1. Descomprimir la entrega en `referencias/fotos-originales/` (los nombres de archivo son los definitivos del documento de imágenes).
 2. Correr:
    ```bash
    npm run imagenes
    ```
-   El script (`scripts/optimizar-imagenes.mjs`, con sharp) lee `data/imagenes.ts` y, por cada foto:
+   El script (`scripts/optimizar-imagenes.mjs`, con sharp) lee `data/imagenes.ts`, busca cada original en todas las entregas (avisa si un nombre se repite) y, por cada foto:
    - la lleva al tamaño "Generar a" del documento, recortando lo mínimo y centrado si la proporción no calza exacto;
    - la exporta en WebP (sRGB, sin metadatos), empezando en calidad 80 y bajando como máximo a 72 para quedar bajo 200 KB (350 KB el hero);
    - muestra una tabla con el peso final, la calidad y el recorte, y la lista de fotos pendientes.
@@ -99,14 +100,14 @@ Nombres, destino, tamaño, peso y texto alternativo de cada imagen: `data/imagen
 public/images/
   sabores/              sabor-manjar.webp, sabor-maracuya.webp, sabor-fresa.webp      1200 × 1200
   cajas/                caja-surtida.webp, caja-manjar.webp, caja-maracuya.webp,       1000 × 1250
-                        caja-coulis-fresa.webp  (+ caja-*-abierta.webp para el hover)
+                        caja-coulis-fresa.webp y sus caja-*-abierta.webp (hover)
   galeria-surtida/      surtida-galeria-1..5.webp                                     1600 × 2000
   galeria-manjar/       manjar-galeria-1..5.webp          (pendientes)                1600 × 2000
   galeria-maracuya/     maracuya-galeria-1..5.webp        (pendientes)                1600 × 2000
   galeria-coulis-fresa/ coulis-fresa-galeria-1..5.webp    (pendientes)                1600 × 2000
   ocasiones/            ocasion-regalo/-cumpleanos/-aniversario/-antojo.webp           800 × 1000
-  hero/                 home-hero.webp (4:5), home-hero-desktop.webp (16:9)  (pendientes)
-  marina/               marina.webp                                  (pendiente)      1200 × 1500
+  home/                 home-hero.webp (4:5, 1600 × 2000), home-hero-desktop.webp (16:9, 2560 × 1440),
+                        marina.webp (4:5, 1200 × 1500)
   og/                   og-compartir.jpg  (pendiente; vista previa al compartir)      1200 × 630
 ```
 
@@ -114,13 +115,13 @@ public/images/
 
 | N.º | Original | Dónde va |
 | --- | --- | --- |
-| 1 · 21 | home-hero.jpg · home-hero-desktop.jpg | Hero de la home (4:5 en móvil, 16:9 desde 768 px) — pendientes |
+| 1 · 21 | home-hero.jpg · home-hero-desktop.jpg | Hero de la home (4:5 en móvil, 16:9 desde 768 px) |
 | 2 · 3 · 4 | sabor-manjar/maracuya/fresa.jpg | Franjas de sabores de la home y "¿Qué hay dentro?" de la ficha |
 | 5 a 8 | caja-surtida/manjar/maracuya/coulis-fresa.jpg | Tarjetas de la grilla (home y colección) y miniatura de la barra fija |
-| 9 | marina.jpg | "Hecho por Marina" — pendiente |
-| 10 a 14 | surtida-galeria-1..5.jpg | Galería de la ficha Surtida (la n.º 13, posición 4, pendiente) |
+| 9 | marina.jpg | "Hecho por Marina" |
+| 10 a 14 | surtida-galeria-1..5.jpg | Galería de la ficha Surtida (5 de 5) |
 | 15 a 18 | ocasion-*.jpg | "¿Para qué ocasión?" en la ficha (la n.º 18, Antojo, pendiente) |
-| 19 | caja-*-abierta.jpg | Segunda foto al pasar el mouse por la tarjeta — pendientes. El cambio de foto se activa solo cuando existen |
+| 19 | caja-*-abierta.jpg | Segunda foto al pasar el mouse por la tarjeta (solo con mouse; en la agotada, bajo el velo) |
 | 20 | {manjar, maracuya, coulis-fresa}-galeria-1..5.jpg | Galerías de las otras fichas — pendientes. Mientras falte la 1, se usa la foto de la tarjeta |
 | 22 | og-compartir.jpg | Vista previa al compartir — pendiente, aún no conectada |
 

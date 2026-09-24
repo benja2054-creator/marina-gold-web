@@ -3,7 +3,9 @@
  * Uso (desde la raíz del proyecto):  npm run imagenes
  *
  * - Lee la lista de data/imagenes.ts (la misma que usa el sitio).
- * - Los originales están en referencias/fotos-originales/marina-gold-imagenes-aprobadas/ y NO se modifican.
+ * - Busca cada original por su nombre en todas las entregas de referencias/fotos-originales/
+ *   (marina-gold-imagenes-aprobadas/, marina-gold-imagenes-aprobadas-parte-2/, …). Las subcarpetas
+ *   packaging/ se ignoran (son referencia de diseño). Los originales NO se modifican.
  * - Redimensiona al tamaño "Generar a" del documento de imágenes. Si la proporción no calza exacto
  *   (las 4:5 llegan a 1856 × 2304), recorta lo mínimo, centrado, y lo informa.
  * - Exporta WebP (JPG para la vista previa al compartir) en sRGB, sin metadatos, apuntando a maxKB:
@@ -18,7 +20,7 @@ import sharp from "sharp";
 import { IMAGES } from "../data/imagenes.ts";
 
 const ROOT = path.resolve(import.meta.dirname, "..");
-const ORIGINALES = path.join(ROOT, "referencias/fotos-originales/marina-gold-imagenes-aprobadas");
+const ORIGINALES = path.join(ROOT, "referencias/fotos-originales");
 const DESTINO = path.join(ROOT, "public/images");
 const CALIDAD_INICIAL = 80;
 const CALIDAD_MINIMA = 72;
@@ -30,15 +32,34 @@ async function encode(pipeline, format, quality) {
     : out.webp({ quality, effort: 6, smartSubsample: true }).toBuffer();
 }
 
+/* Índice nombre → ruta de todos los originales de todas las entregas */
+function indexarOriginales(dir, indice = new Map()) {
+  for (const entrada of fs.readdirSync(dir, { withFileTypes: true })) {
+    const ruta = path.join(dir, entrada.name);
+    if (entrada.isDirectory()) {
+      if (entrada.name !== "packaging") indexarOriginales(ruta, indice);
+    } else if (/\.(jpe?g|png)$/i.test(entrada.name)) {
+      if (indice.has(entrada.name)) {
+        throw new Error(`Original repetido en dos entregas: ${entrada.name}
+  ${indice.get(entrada.name)}
+  ${ruta}`);
+      }
+      indice.set(entrada.name, ruta);
+    }
+  }
+  return indice;
+}
+const originales = indexarOriginales(ORIGINALES);
+
 const generadas = [];
 const pendientes = [];
 const avisos = [];
 
 for (const spec of Object.values(IMAGES)) {
-  const origen = path.join(ORIGINALES, spec.original);
+  const origen = originales.get(spec.original);
   const salida = path.join(DESTINO, spec.output);
 
-  if (!fs.existsSync(origen)) {
+  if (!origen) {
     pendientes.push(`n.º ${spec.n} · ${spec.original}`);
     if (fs.existsSync(salida)) {
       fs.rmSync(salida);
@@ -76,7 +97,7 @@ for (const spec of Object.values(IMAGES)) {
   fs.writeFileSync(salida, buffer);
   generadas.push({
     "n.º": spec.n,
-    original: spec.original,
+    original: `${path.basename(path.dirname(origen))}/${spec.original}`,
     salida: `public/images/${spec.output}`,
     tamaño: `${spec.width}×${spec.height}`,
     KB: Math.round(buffer.length / 1024),

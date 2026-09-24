@@ -42,3 +42,11 @@ Registro de contradicciones y huecos del diseño, y cómo se resolvieron. Aproba
 - La miniatura de la barra fija reutiliza la foto de la tarjeta (n.º 5 a 8), como indica el documento.
 - Diferencias con el plan (según el LEEME): cajas cerradas con faja en vez de abiertas o con lazo; la n.º 14 lleva cinta roja; la foto de Cumpleaños (n.º 16) no tiene vela, muestra luces y confeti (su texto alternativo lo describe así). Los textos pequeños impresos en las cajas son de la IA y no sirven como arte final.
 - `og-compartir.jpg` (n.º 22) está en el manifiesto pero todavía no se conecta a los metadatos.
+
+## Fotos aprobadas, parte 2 (2026-09-24)
+
+- Entrega en `referencias/fotos-originales/marina-gold-imagenes-aprobadas-parte-2/`. El script busca los originales en todas las entregas.
+- Heros y Marina en `public/images/home/` (antes estaban previstas `hero/` y `marina/`). Tamaños: hero celular 1600 × 2000 y Marina 1200 × 1500 ("Generar a" del documento), hero escritorio 2560 × 1440.
+- Recortes: 13 px de ancho en las 4:5 y 43 px de ancho en el hero de escritorio (5504 × 3072 no es 16:9 exacto). Centrados.
+- El hero cambia a la foto 16:9 desde 768 px, igual que antes (decisión de tablet ya aprobada), con <picture> para que cada dispositivo descargue solo su foto. Se usa `fetchPriority="high"`: `priority` está obsoleto en Next 16 y `preload` haría descargar también la foto de celular en escritorio.
+- Hover reactivado en las 4 tarjetas, solo con puntero fino; en Coulis de fresa (agotada) el velo cubre también la foto abierta.
