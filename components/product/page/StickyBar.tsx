@@ -44,11 +44,7 @@ export function StickyBar() {
     >
       <div className="mx-auto flex h-sticky max-w-product items-center gap-3 px-3">
         {/* Miniatura: la foto de la tarjeta (el documento de imágenes reutiliza la n.º 5) */}
-        {product.cardImage.exists ? (
-          <Photo image={product.cardImage} ratio="box" bg={boxBg(product.colors)} sizes="44px" className="w-thumb-w shrink-0" />
-        ) : (
-          <span aria-hidden="true" className={`h-thumb-h w-thumb-w shrink-0 ${boxBg(product.colors)}`} />
-        )}
+        <Photo image={product.cardImage} ratio="box" bg={boxBg(product.colors)} sizes="44px" className="w-thumb-w shrink-0" />
         <div className="min-w-0 flex-1">
           <p className="truncate font-serif text-mg-sticky-name font-bold uppercase leading-card">{product.title}</p>
           <p className="text-mg-sticky-meta text-mg-ink-2">

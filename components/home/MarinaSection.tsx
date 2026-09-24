@@ -27,7 +27,7 @@ export function MarinaSection({ eyebrow, title, titleAccent, body, signature, li
         <Photo
           image={image}
           ratio="box"
-          bg="bg-mg-placeholder"
+          bg="bg-mg-bone"
           sizes="(min-width: 1024px) 576px, (min-width: 768px) 344px, calc(100vw - 32px)"
         />
         <div className="mt-6 md:mt-0">

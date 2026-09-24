@@ -61,13 +61,10 @@ export interface BoxData {
   images: {
     /** Tarjeta de la grilla y miniatura de la barra fija */
     card: ImageKey;
-    /** Segunda foto al pasar el mouse por la tarjeta. Si aún no existe, no hay cambio de foto. */
+    /** Segunda foto al pasar el mouse por la tarjeta (caja abierta) */
     hover: ImageKey;
-    /**
-     * 5 fotos de la galería de la ficha. Cada posición puede ser una lista: se usa la primera
-     * que exista (p. ej. la foto de la tarjeta mientras falta la de la galería).
-     */
-    gallery: (ImageKey | ImageKey[])[];
+    /** 5 fotos de la galería de la ficha, en orden */
+    gallery: ImageKey[];
   };
 }
 
@@ -160,8 +157,7 @@ export const boxes: BoxData[] = [
     images: {
       card: "caja-manjar",
       hover: "caja-manjar-abierta",
-      // Mientras falte su galería (n.º 20), la primera foto es la de la tarjeta
-      gallery: [["manjar-galeria-1", "caja-manjar"], "manjar-galeria-2", "manjar-galeria-3", "manjar-galeria-4", "manjar-galeria-5"],
+      gallery: ["manjar-galeria-1", "manjar-galeria-2", "manjar-galeria-3", "manjar-galeria-4", "manjar-galeria-5"],
     },
   },
   {
@@ -181,7 +177,7 @@ export const boxes: BoxData[] = [
     images: {
       card: "caja-maracuya",
       hover: "caja-maracuya-abierta",
-      gallery: [["maracuya-galeria-1", "caja-maracuya"], "maracuya-galeria-2", "maracuya-galeria-3", "maracuya-galeria-4", "maracuya-galeria-5"],
+      gallery: ["maracuya-galeria-1", "maracuya-galeria-2", "maracuya-galeria-3", "maracuya-galeria-4", "maracuya-galeria-5"],
     },
   },
   {
@@ -204,7 +200,7 @@ export const boxes: BoxData[] = [
       card: "caja-coulis-fresa",
       hover: "caja-coulis-fresa-abierta",
       gallery: [
-        ["coulis-fresa-galeria-1", "caja-coulis-fresa"],
+        "coulis-fresa-galeria-1",
         "coulis-fresa-galeria-2",
         "coulis-fresa-galeria-3",
         "coulis-fresa-galeria-4",

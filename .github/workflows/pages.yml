@@ -41,6 +41,8 @@ jobs:
         env:
           GITHUB_PAGES: "true"
           PAGES_BASE_PATH: ${{ steps.pages.outputs.base_path }}
+          # Dominio del sitio para las URL absolutas de og:image y twitter:image
+          NEXT_PUBLIC_SITE_URL: ${{ steps.pages.outputs.origin }}
 
       - uses: actions/upload-pages-artifact@v5
         with:

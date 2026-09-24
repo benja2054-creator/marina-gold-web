@@ -18,7 +18,7 @@ import {
   type FlavorId,
 } from "@/data/catalog";
 import { catalogLabels, collectionPage, productCard } from "@/data/content";
-import { firstAvailable, image, type ImageAsset } from "@/lib/images";
+import { image, type ImageAsset } from "@/lib/images";
 import { applyDiscount, bulkSavings, pricePerUnit } from "@/lib/pricing";
 import { joinList } from "@/lib/text";
 
@@ -74,9 +74,9 @@ export interface Product {
   bulkSavings: number;
   /** Foto de la tarjeta de la grilla (también miniatura de la barra fija) */
   cardImage: ImageAsset;
-  /** Segunda foto del hover; si no existe (exists: false) la tarjeta no cambia de foto */
+  /** Segunda foto, al pasar el mouse por la tarjeta (caja abierta) */
   hoverImage: ImageAsset;
-  /** Galería de la ficha (5 fotos o placeholders) */
+  /** Galería de la ficha (5 fotos) */
   images: ImageAsset[];
 }
 
@@ -169,7 +169,7 @@ function toProduct(box: BoxData, allFlavors: Flavor[]): Product {
     bulkSavings: bulkSavings(small.price, large.price),
     cardImage: image(box.images.card),
     hoverImage: image(box.images.hover),
-    images: box.images.gallery.map((slot) => firstAvailable(Array.isArray(slot) ? slot : [slot])),
+    images: box.images.gallery.map(image),
   };
 }
 

@@ -48,8 +48,6 @@ const config: Config = {
         "soldout-veil": v("soldout-veil"),
         overlay: v("overlay"),
         focus: v("focus"),
-        placeholder: v("placeholder"),
-        "placeholder-dark": v("placeholder-dark"),
         "segment-off": v("segment-off"),
         "hero-veil": v("hero-veil"),
       },
@@ -200,7 +198,6 @@ const config: Config = {
       hero: v("ratio-hero"),
       box: v("ratio-box"),
       flavor: v("ratio-flavor"),
-      "hero-desktop": "16 / 9",
     },
     maxWidth: {
       none: "none",

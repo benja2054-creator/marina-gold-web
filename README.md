@@ -48,8 +48,8 @@ data/content.ts      Textos del sitio (anuncio, menú, home, ficha, FAQ, footer�
 data/imagenes.ts     Manifiesto de imágenes: n.º del documento, original, versión web, tamaño, peso y texto alternativo
 lib/catalog.ts       Funciones de acceso (getProducts, getProductBySlug, getCollection)
 lib/pricing.ts       Cálculos de precio (por bombón, "Desde", ahorro, oferta)
-lib/images.ts        Resuelve cada imagen del manifiesto; si la versión web no existe, se muestra el placeholder
-styles/tokens.css    Tokens de diseño (copia exacta de referencias/diseno/tokens.css)
+lib/images.ts        Resuelve cada imagen del manifiesto; si falta su versión web, la compilación falla con un aviso
+styles/tokens.css    Tokens de diseño (copia de referencias/diseno/tokens.css, sin los colores temporales de placeholders)
 styles/tokens-extendidos.css  Medidas de las notas que no están en tokens.css y ajustes tablet/escritorio
 public/images/       Versiones web optimizadas (las genera `npm run imagenes`; ver "Imágenes")
 referencias/diseno/  Paquete de diseño aprobado
@@ -74,7 +74,7 @@ Los textos marcados con `TODO` en el código son de ejemplo y aún no están con
 
 Las fotos aprobadas llegan en JPG de alta resolución, por entregas, y **no se tocan**: cada zip se
 descomprime en su propia carpeta dentro de `referencias/fotos-originales/`
-(`marina-gold-imagenes-aprobadas/`, `marina-gold-imagenes-aprobadas-parte-2/`, …), cada una con su
+(`marina-gold-imagenes-aprobadas/`, `…-parte-2/` y `…-parte-3/`), cada una con su
 `LEEME-imagenes.md`. La carpeta `packaging/` es solo referencia del diseño de la caja y no va en la web. El sitio usa versiones
 optimizadas que genera un script a partir de esos originales.
 
@@ -88,10 +88,12 @@ optimizadas que genera un script a partir de esos originales.
    El script (`scripts/optimizar-imagenes.mjs`, con sharp) lee `data/imagenes.ts`, busca cada original en todas las entregas (avisa si un nombre se repite) y, por cada foto:
    - la lleva al tamaño "Generar a" del documento, recortando lo mínimo y centrado si la proporción no calza exacto;
    - la exporta en WebP (sRGB, sin metadatos), empezando en calidad 80 y bajando como máximo a 72 para quedar bajo 200 KB (350 KB el hero);
-   - muestra una tabla con el peso final, la calidad y el recorte, y la lista de fotos pendientes.
+   - en la vista previa al compartir, compone el logo MARINA GOLD (Playfair Display 800, #111111) en la mitad izquierda y la guarda en JPG;
+   - muestra una tabla con el peso final, la calidad y el recorte, y avisa si falta algún original.
 3. Revisar en `npm run dev`, hacer commit y `git push` (GitHub Pages se actualiza solo).
 
-Mientras falte un original, el sitio muestra un placeholder con la proporción correcta y el nombre del archivo esperado.
+Están aprobadas las 22 imágenes del documento (n.º 1 a 22), así que el sitio ya no tiene placeholders. Si alguna versión
+optimizada falta en `public/images`, la compilación se detiene e indica cuál: basta con correr `npm run imagenes`.
 Nombres, destino, tamaño, peso y texto alternativo de cada imagen: `data/imagenes.ts`.
 
 **Estructura de `public/images`**
@@ -102,13 +104,13 @@ public/images/
   cajas/                caja-surtida.webp, caja-manjar.webp, caja-maracuya.webp,       1000 × 1250
                         caja-coulis-fresa.webp y sus caja-*-abierta.webp (hover)
   galeria-surtida/      surtida-galeria-1..5.webp                                     1600 × 2000
-  galeria-manjar/       manjar-galeria-1..5.webp          (pendientes)                1600 × 2000
-  galeria-maracuya/     maracuya-galeria-1..5.webp        (pendientes)                1600 × 2000
-  galeria-coulis-fresa/ coulis-fresa-galeria-1..5.webp    (pendientes)                1600 × 2000
+  galeria-manjar/       manjar-galeria-1..5.webp                                      1600 × 2000
+  galeria-maracuya/     maracuya-galeria-1..5.webp                                    1600 × 2000
+  galeria-coulis-fresa/ coulis-fresa-galeria-1..5.webp                                1600 × 2000
   ocasiones/            ocasion-regalo/-cumpleanos/-aniversario/-antojo.webp           800 × 1000
   home/                 home-hero.webp (4:5, 1600 × 2000), home-hero-desktop.webp (16:9, 2560 × 1440),
                         marina.webp (4:5, 1200 × 1500)
-  og/                   og-compartir.jpg  (pendiente; vista previa al compartir)      1200 × 630
+  og/                   og-compartir.jpg  (JPG con el logo; vista previa al compartir) 1200 × 630
 ```
 
 **Dónde se usa cada foto**
@@ -120,10 +122,15 @@ public/images/
 | 5 a 8 | caja-surtida/manjar/maracuya/coulis-fresa.jpg | Tarjetas de la grilla (home y colección) y miniatura de la barra fija |
 | 9 | marina.jpg | "Hecho por Marina" |
 | 10 a 14 | surtida-galeria-1..5.jpg | Galería de la ficha Surtida (5 de 5) |
-| 15 a 18 | ocasion-*.jpg | "¿Para qué ocasión?" en la ficha (la n.º 18, Antojo, pendiente) |
+| 15 a 18 | ocasion-*.jpg | "¿Para qué ocasión?" en las cuatro fichas |
 | 19 | caja-*-abierta.jpg | Segunda foto al pasar el mouse por la tarjeta (solo con mouse; en la agotada, bajo el velo) |
-| 20 | {manjar, maracuya, coulis-fresa}-galeria-1..5.jpg | Galerías de las otras fichas — pendientes. Mientras falte la 1, se usa la foto de la tarjeta |
-| 22 | og-compartir.jpg | Vista previa al compartir — pendiente, aún no conectada |
+| 20 | {manjar, maracuya, coulis-fresa}-galeria-1..5.jpg | Galerías de las fichas Manjar, Maracuyá y Coulis de fresa |
+| 22 | og-compartir.jpg | Vista previa al compartir en WhatsApp y redes: `og:image` y `twitter:image` (summary_large_image) de todas las páginas |
+
+**URL de la vista previa al compartir.** `og:image` necesita una URL absoluta. Como aún no hay dominio definitivo, la base
+sale de la variable `NEXT_PUBLIC_SITE_URL` (ver `.env.example`): el workflow de GitHub Pages la define como
+`https://marinagoldpe.github.io`, y en local vale `http://localhost:3000`. Al tener dominio propio, cambiarla en el
+workflow (o en el hosting) y volver a publicar.
 
 ## Textos pendientes de confirmar (TODO)
 

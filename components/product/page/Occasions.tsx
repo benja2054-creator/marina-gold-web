@@ -26,7 +26,7 @@ export function Occasions({ title, items }: { title: string; items: Occasion[] }
         {items.map((item) => (
           <li key={item.id} className="w-occasion shrink-0 snap-start lg:w-auto">
             <Link href="/collections/todas" className="group block">
-              <Photo image={item.image} ratio="box" bg="bg-mg-placeholder" sizes="(min-width: 1024px) 282px, 220px" />
+              <Photo image={item.image} ratio="box" bg="bg-mg-bone" sizes="(min-width: 1024px) 282px, 220px" />
               <h3 className="mt-3 font-serif text-mg-occasion font-bold uppercase leading-card tracking-card transition-colors duration-fast group-hover:text-mg-red">
                 {item.title}
               </h3>

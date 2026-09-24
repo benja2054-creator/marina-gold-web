@@ -41,10 +41,6 @@
   --mg-overlay: rgba(17, 17, 17, 0.50);          /* [PROPUESTO] fondo detrás del menú lateral abierto */
   --mg-focus: #C8102E;                           /* [PROPUESTO] anillo de foco (outline 2px, offset 2px) */
 
-  /* ---------- Color: temporales (se van con las fotos reales) ---------- */
-  --mg-placeholder: #E7E7E4;       /* fondo de placeholders de foto sobre blanco */
-  --mg-placeholder-dark: #1A1A1A;  /* fondo del placeholder del hero */
-
   /* ---------- Tipografía: familias (cargar con next/font/google) ---------- */
   --mg-serif: 'Playfair Display', Georgia, serif;  /* títulos, nombres de producto, logo. Pesos 400 itálica, 700, 800. Siempre MAYÚSCULAS salvo la itálica de acento */
   --mg-sans: 'DM Sans', system-ui, sans-serif;     /* textos, precios, botones, etiquetas. Pesos 400, 500, 700 */

@@ -11,8 +11,9 @@
  * - maxKB:    peso objetivo (200 KB; 350 KB el hero).
  * - alt:      texto alternativo en español.
  *
- * Para agregar una foto nueva: descomprimir la entrega en referencias/fotos-originales/ y correr
- * `npm run imagenes`. Si el original aún no existe, el sitio muestra un placeholder con su nombre.
+ * Para cambiar o agregar una foto: descomprimir la entrega en referencias/fotos-originales/ y correr
+ * `npm run imagenes`. Si falta la versión optimizada de alguna imagen, la compilación falla con un
+ * mensaje que indica cuál (ya no hay placeholders: las 22 fotos del documento están aprobadas).
  *
  * Solo sintaxis que Node puede ejecutar sin compilar (el script lo importa directamente).
  */
@@ -25,6 +26,10 @@ export interface ImageSpec {
   height: number;
   maxKB: number;
   format?: "webp" | "jpg";
+  /** Calidad inicial (por defecto 80, la del documento; 85 la vista previa al compartir) */
+  quality?: number;
+  /** El script compone el logo MARINA GOLD en la mitad izquierda (vista previa al compartir) */
+  logo?: "izquierda";
   alt: string;
 }
 
@@ -35,13 +40,13 @@ const GALERIA = { width: 1600, height: 2000, maxKB: 200 };
 const OCASION = { width: 800, height: 1000, maxKB: 200 };
 
 /* Galería de 5 fotos de una caja, con la misma lógica que la de la Surtida (n.º 10 a 14) */
-function galeria<P extends string>(prefix: P, carpeta: string, nombreCaja: string, n: number) {
+function galeria<P extends string>(prefix: P, carpeta: string, nombreCaja: string, bombones: string, relleno: string, n: number) {
   const descripciones = [
-    `${nombreCaja} abierta vista desde arriba, con sus bombones`,
+    `${nombreCaja} abierta vista desde arriba: bandeja con 6 ${bombones} en pirotines y la faja al lado`,
     `${nombreCaja} cerrada, vista en tres cuartos`,
-    `Bombón de la ${nombreCaja.toLowerCase()} partido, mostrando el relleno`,
-    "Mano sosteniendo un bombón para mostrar su tamaño",
-    `${nombreCaja} lista para regalo`,
+    `Tres ${bombones} partidos, con las mitades lado a lado mostrando el relleno de ${relleno}`,
+    `Mano de Marina sosteniendo un bombón de ${relleno} mordido, para mostrar su tamaño`,
+    `${nombreCaja} lista para regalo, con cinta roja`,
   ];
   return Object.fromEntries(
     descripciones.map((alt, i) => [
@@ -174,9 +179,9 @@ export const IMAGES = {
   },
 
   /* ---------- Galerías de las otras cajas (n.º 20) ---------- */
-  ...galeria("manjar", "galeria-manjar", "Caja Manjar de olla", 20),
-  ...galeria("maracuya", "galeria-maracuya", "Caja Maracuyá", 20),
-  ...galeria("coulis-fresa", "galeria-coulis-fresa", "Caja Coulis de fresa", 20),
+  ...galeria("manjar", "galeria-manjar", "Caja Manjar de olla", "bombones de chocolate negro", "manjar de olla", 20),
+  ...galeria("maracuya", "galeria-maracuya", "Caja Maracuyá", "bombones de chocolate de leche", "maracuyá", 20),
+  ...galeria("coulis-fresa", "galeria-coulis-fresa", "Caja Coulis de fresa", "bombones de chocolate blanco", "coulis de fresa", 20),
 
   /* ---------- Ocasiones (n.º 15 a 18) ---------- */
   "ocasion-regalo": {
@@ -205,19 +210,22 @@ export const IMAGES = {
     original: "ocasion-antojo.jpg",
     output: "ocasiones/ocasion-antojo.webp",
     ...OCASION,
-    alt: "Bombón mordido junto al sofá",
+    alt: "Caja Manjar de olla abierta sobre una mesa de noche, a la luz de una lámpara, con dos pirotines vacíos y un bombón mordido",
   },
 
-  /* ---------- Vista previa al compartir (n.º 22). Aún no se usa en el sitio. ---------- */
+  /* ---------- Vista previa al compartir (n.º 22): og:image y twitter:image ---------- */
   "og-compartir": {
     n: 22,
     original: "og-compartir.jpg",
     output: "og/og-compartir.jpg",
     width: 1200,
     height: 630,
-    maxKB: 200,
+    maxKB: 300,
+    // JPG: varias redes no leen WebP en og:image
     format: "jpg",
-    alt: "Caja Surtida de Marina Gold con el logo",
+    quality: 85,
+    logo: "izquierda",
+    alt: "Logo de Marina Gold junto a la caja Surtida abierta, con sus 12 bombones de manjar de olla, maracuyá y coulis de fresa",
   },
 } satisfies Record<string, ImageSpec>;
 

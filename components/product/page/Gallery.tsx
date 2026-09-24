@@ -37,7 +37,7 @@ export function Gallery({ images, title }: { images: ImageAsset[]; title: string
                 i === active ? "border-mg-black" : "border-transparent hover:border-mg-line"
               }`}
             >
-              <Photo image={image} ratio="box" bg="bg-mg-placeholder" sizes="72px" />
+              <Photo image={image} ratio="box" bg="bg-mg-bone" sizes="72px" />
             </button>
           </li>
         ))}
@@ -59,10 +59,9 @@ export function Gallery({ images, title }: { images: ImageAsset[]; title: string
               <Photo
                 image={image}
                 ratio="box"
-                bg="bg-mg-placeholder"
+                bg="bg-mg-bone"
                 sizes="(min-width: 1024px) 528px, (min-width: 768px) 600px, 100vw"
                 fetchPriority={i === 0 ? "high" : undefined}
-                labelTop
               />
             </li>
           ))}

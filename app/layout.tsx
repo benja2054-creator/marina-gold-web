@@ -6,6 +6,7 @@ import { Header } from "@/components/layout/Header";
 import { Newsletter } from "@/components/layout/Newsletter";
 import { announcement, brand, desktopNav, drawerMenu, footer, links, newsletter, socials } from "@/data/content";
 import { getProducts } from "@/lib/catalog";
+import { image } from "@/lib/images";
 import "./globals.css";
 
 /*
@@ -26,12 +27,41 @@ const dmSans = DM_Sans({
   display: "swap",
 });
 
+const SITE_TITLE = `${brand.name} · Bombones artesanales en Lima`;
+const SITE_DESCRIPTION =
+  "Bombones artesanales premium hechos a mano en Lima: manjar de olla, maracuyá y coulis de fresa, en cajas de 6 y 12.";
+
+/*
+ * URL base para las rutas absolutas de og:image y twitter:image. Aún no hay dominio definitivo:
+ * sale de NEXT_PUBLIC_SITE_URL (el workflow de GitHub Pages la define; ver README y .env.example).
+ */
+const SITE_URL = process.env.NEXT_PUBLIC_SITE_URL ?? "http://localhost:3000";
+
+// Vista previa al compartir (n.º 22): JPG 1200 × 630 con el logo compuesto por el script de imágenes
+const ogImage = image("og-compartir");
+const ogImageMeta = { url: ogImage.src, width: ogImage.width, height: ogImage.height, alt: ogImage.alt, type: "image/jpeg" };
+
 export const metadata: Metadata = {
+  metadataBase: new URL(SITE_URL),
   title: {
-    default: `${brand.name} · Bombones artesanales en Lima`,
+    default: SITE_TITLE,
     template: `%s · ${brand.name}`,
   },
-  description: "Bombones artesanales premium hechos a mano en Lima: manjar de olla, maracuyá y coulis de fresa, en cajas de 6 y 12.",
+  description: SITE_DESCRIPTION,
+  openGraph: {
+    type: "website",
+    locale: "es_PE",
+    siteName: brand.name,
+    title: SITE_TITLE,
+    description: SITE_DESCRIPTION,
+    images: [ogImageMeta],
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: SITE_TITLE,
+    description: SITE_DESCRIPTION,
+    images: [ogImageMeta],
+  },
   // Maqueta: que Google no la indexe hasta el lanzamiento.
   robots: { index: false, follow: false },
 };

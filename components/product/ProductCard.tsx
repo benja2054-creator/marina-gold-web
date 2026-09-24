@@ -14,7 +14,7 @@ const SIZES = "(min-width: 1024px) 282px, (min-width: 768px) 344px, calc(50vw - 
  * Tarjeta de caja (notas §4): foto 4:5 con el color del sabor (la Surtida con sus tres franjas),
  * y debajo, a 10 px: nombre, "6 y 12 bombones" y "Desde S/ 45.00", a 4 px entre sí.
  * Toda la tarjeta enlaza a la ficha, salvo la agotada (decisiones.md punto B).
- * Hover [PROPUESTO]: fundido de 250 ms a la segunda foto (caja abierta, n.º 19), si existe.
+ * Hover [PROPUESTO]: fundido de 250 ms a la segunda foto (caja abierta, n.º 19).
  * - Solo con puntero fino (hoverOnlyWhenSupported): en pantallas táctiles no se activa ni queda trabada.
  * - Con prefers-reduced-motion el cambio es instantáneo, sin fundido.
  * - En la agotada también hay hover, y el velo blanco del 55% va encima de ambas fotos.
@@ -23,19 +23,16 @@ export function ProductCard({ product, titleAs: Title = "h3" }: { product: Produ
   const bg = boxBg(product.colors);
   const soldOut = !product.available;
   const sizesLine = `${product.variants.map((v) => v.size).join(" y ")} ${t.unitsSuffix}`;
-  const hasHover = product.hoverImage.exists;
 
   const photo = (
     <Photo image={product.cardImage} ratio="box" bg={bg} sizes={SIZES}>
-      {hasHover && (
-        // Capa del hover: el contenedor se posiciona; Photo ocupa todo su alto.
-        <div
-          aria-hidden="true"
-          className="absolute inset-0 opacity-0 transition-opacity duration-base ease-mg group-hover:opacity-100 motion-reduce:transition-none"
-        >
-          <Photo image={product.hoverImage} ratio="free" bg={bg} sizes={SIZES} decorative className="h-full" />
-        </div>
-      )}
+      {/* Capa del hover: el contenedor se posiciona; Photo ocupa todo su alto. */}
+      <div
+        aria-hidden="true"
+        className="absolute inset-0 opacity-0 transition-opacity duration-base ease-mg group-hover:opacity-100 motion-reduce:transition-none"
+      >
+        <Photo image={product.hoverImage} ratio="free" bg={bg} sizes={SIZES} decorative className="h-full" />
+      </div>
       {/* Después de la capa del hover: el velo cubre también la foto abierta */}
       {soldOut && <div aria-hidden="true" className="absolute inset-0 bg-mg-soldout-veil" />}
       {product.badge && (

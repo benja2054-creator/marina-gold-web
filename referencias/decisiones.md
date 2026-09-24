@@ -53,3 +53,14 @@ Registro de contradicciones y huecos del diseño, y cómo se resolvieron. Aproba
 - ~~**Hero de escritorio (n.º 21) por rehacer.** En la foto de la parte 2 la tapa de la caja ocupa hasta el 56 % del ancho, a la altura del texto centrado, y a 1440–1920 px el título roza el pelo y el brazo de Marina. Decisión del cliente (2026-09-24): pedir una foto nueva.~~
   **Revertida el 2026-09-24.** Motivo: "El cliente aprueba el hero actual tal como se ve". `home-hero-desktop.jpg` queda como definitiva, con el texto centrado sobre la foto aunque el título caiga sobre la caja. No se cambia nada del hero: la foto, el `object-position` (50 % 50 %), la posición y el ancho del texto y el velo del 30 % quedan como están.
   ~~Zona libre que debía respetar la foto nueva (del 33 % al 67 % del alto; a lo ancho, del 15 % al 85 % a 1024 px, del 26 % al 74 % a 1440 px y del 32 % al 68 % a 1920 px).~~ Ya no aplica: se quitó el encargo del README.
+
+## Fotos aprobadas, parte 3 — final (2026-09-24)
+
+- Entrega en `referencias/fotos-originales/marina-gold-imagenes-aprobadas-parte-3/`. Con ella están aprobadas las 22 imágenes del documento.
+- Galerías de Manjar, Maracuyá y Coulis de fresa (n.º 20) con sus 5 fotos propias; la foto 1 reemplaza a la de tarjeta que se usaba provisionalmente. Recorte: 13 px de ancho, como las demás 4:5.
+- Coulis de fresa sigue agotada con el mismo tratamiento en la ficha (etiqueta, tamaños rayados, botón gris y AVÍSAME); la galería no lleva velo.
+- Ocasión Antojo (n.º 18) en las cuatro fichas.
+- Vista previa al compartir (n.º 22): recorte centrado de 2752 × 1536 a 1200 × 630 (91 px de alto en el original), JPG calidad 85. El script compone el logo en dos líneas, "MARINA / GOLD", como el logo del footer, con Playfair Display 800 en #111111, centrado en la mitad izquierda y con 320 px de ancho para no tocar la bandeja. No lleva el punto rojo del footer porque se pidió en negro. El LEEME menciona el crema #F4EDE1 del fondo: es el color de la foto, no se usa en el sitio.
+- `og:image` y `twitter:image` (summary_large_image) en todas las páginas, con URL absoluta desde `NEXT_PUBLIC_SITE_URL`, que el workflow define como el origen de GitHub Pages.
+- Sin placeholders: se eliminaron del código el placeholder de foto, el del hero, la lógica de "primera foto disponible" y los colores temporales `--mg-placeholder` de `styles/tokens.css`. Si falta una imagen, la compilación falla indicando cuál.
+- Nuevas dependencias de desarrollo para el script: `opentype.js` y `@fontsource/playfair-display` (la fuente para dibujar el logo). No se sirven en la web.
